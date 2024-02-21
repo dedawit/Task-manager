@@ -4,16 +4,12 @@ padding: 0;
 box-sizing: border-box;
 font-family: cambria, cochin,georgia;
 }
-
-main{
-max-width: 1500px;
-width: 95%;
-margin: 30px auto;
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-margin: auto;
+.body{
+background-color: #cf8484;
+margin: 0px;  
+padding: 0px;
 }
+
 .requestInfo,
   .FurtherDescription,
   .requestDate input {
@@ -21,16 +17,31 @@ margin: auto;
     padding: 5px; /* Add padding for spacing within the input */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
   }
-
-main.card
-{
-max-width: 300px;
-flex: 1 1 210px;
-text-align: center;
-height: 400px;
-border: 1px solid lightgray;
+div.card{
+  border-style: none;
+  margin-left: 20px;
+  padding: 10px;
 }
-main .card .infoCenter{
+ 
+.card
+  {
+  flex: 1 1 210px;
+  text-align: center;
+  height: 400px;
+  border: 1px solid lightgray;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}  
+.RequestId{
+  background-color: #5C52CA;
+  
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}  
+
+
+.infoCenter{
 height: 50%;
 margin-bottom: 20px;
 width:100%;
