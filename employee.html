@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin page</title>
+    <title>Employees page</title>
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/employee.css" rel="stylesheet" />
   </head>
   <body class="bg-white dark:bg-gray-500 flex flex-col min-h-screen">
     <header
@@ -24,11 +24,6 @@
         </div>
       </div>
       <div class="flex justify-end w-full">
-        <i class="bx bx-task text-white"></i>
-        <span class="text-white mr-4">Tasks</span>
-        <i class="ml-4 bx bx-group text-white"></i>
-        <span class="text-white mr-4">Employees</span>
-
         <i class="ml-4 bx bx-user text-white"></i>
         <span class="text-white mr-4">My Account</span>
 
@@ -58,59 +53,69 @@
         ></i>
 
         <div class="flex items-center relative ml-4">
-          <select
+          <input
+            type="text"
+            name="Enter Id"
+            id=""
+            placeholder="Enter ID"
             class="block text-white appearance-none w-full bg-blue-600 dark:bg-gray-800 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500"
-          >
-            <option>Status(All)</option>
-          </select>
-          <div
-            class="bg-blue-600 dark:bg-gray-800 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <i class="fa-solid fa-chevron-down text-white"></i>
-          </div>
-        </div>
-
-        <div class="flex items-center relative ml-4">
-          <select
             class="block text-white appearance-none w-full bg-blue-600 dark:bg-gray-800 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500"
-          >
-            <option>Employees(All)</option>
-          </select>
-          <div
-            class="bg-blue-600 dark:bg-gray-800 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <i class="fa-solid fa-chevron-down text-white"></i>
-          </div>
-        </div>
-        <div class="ml-auto mr-2">
-          <button
-            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800"
-          >
-            Add
-          </button>
-          <button
-            class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded dark:bg-gray-800"
-          >
-            Delete
-          </button>
+          />
         </div>
       </div>
-      <table class="mt-4 table-auto text-white w-full">
-        <thead>
-          <tr class="bg-blue-600 dark:bg-gray-800">
-            <th class="px-4 py-2">Task Name</th>
-            <th class="px-4 py-2">Owner</th>
-            <th class="px-4 py-2">Status</th>
-            <th class="px-4 py-2">Start Date</th>
-            <th class="px-4 py-2">Completion Date</th>
-            <th class="px-4 py-2">Days</th>
-            <th class="px-8 py-2">Progress</th>
+      <main>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="card">
+            <div class="RequestId">
+              <label for="request ID">Request ID:</label>
+            </div>
+           <div class="infoCenter">
+            <div class="description border-none">
+              <label for="request info">Requst Info:</label>
+              <input
+                type="text"
+                class="requestInfo border-none"
+                name="Report All grade by monday "
+                value="Report All grade by monday"
+              />
+            </div>
+            <div class="furtherDescription border-none">
+              <input
+                type="text"
+                class="Further Description"
+                name="Further description"
+                value="Further description"
+              />
+            </div>
 
-            <!-- Empty column -->
-          </tr>
-        </thead>
+            <div class="requestDate">
+              <label for="request date">Request Date:</label>
+              <input
+                type="text"
+                class="requestDate"
+                name="Request Date"
+                value="Request Date"
+              />
+            </div>
+            <div class="ml-auto mr-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800"
+              >
+                Add
+              </button>
+              <button
+                class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded dark:bg-gray-800"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+           </div>
+          <div class="response"></div>
+        </div>
+
         <!-- Add table body and rows here if needed -->
-      </table>
+      </main>
     </div>
     <div id="footerContainer"></div>
     <script
