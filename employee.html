@@ -37,9 +37,9 @@
 
     <div class="flex-grow flex-col items-start dark:bg-gray-300">
       <div class="grid grid-cols-2 gap-4">
-        <div class="card w-full">
+        <div class="card w-full h-full">
           <div
-            class="relative flex items-center dark:bg-gray-300 ml-0 mt-1 mb-4 w-full"
+            class="flex items-center dark:bg-gray-300 ml-0 mt-1 mb-4 w-full"
           >
             <div
               class="relative flex items-center dark:bg-gray-300 pr-0 w-full"
@@ -66,32 +66,39 @@
               />
             </div>
           </div>
-          <div class="container flex flex-col">
-            <div class="RequestId">
+          <div class="container flex flex-col flex-grow w-full">
+            <div class="RequestId flex flex-start pl-4 pt-2 h-10">
               <label for="request ID">Request ID:</label>
             </div>
-            <div class="infoCenter">
-              <div class="description border-none">
-                <label for="request info">Request Info:</label>
-                <p class="requestInfo border-none">
+            <div class="infoCenter flex flex-col pl-4 text-black pt-4 gap-y-2">
+              <div class="description border-none flex items-start">
+                <label class="request-info whitespace-nowrap mr-2 p-0"
+                  >Request Info:</label
+                >
+                <p class="requestInfo border-none flex flex-start p-0">
                   Report All grade by Monday
                 </p>
               </div>
-              <div class="furtherDescription border-none">
-                <p>Further description</p>
+
+              <div class="furtherDescription border-none flex">
+                <p class="fur_Des flex text-wrap text-left">
+                  Further description lorem Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Cum veniam, dicta, libero
+                  dolorum at
+                </p>
               </div>
-              <div class="requestDate">
+              <div class="requestDate flex">
                 <label for="request date">Request Date:</label>
-                <p>Request Date</p>
+                <p class="reqDate">2020-04-08</p>
               </div>
-              <div class="ml-auto mr-2">
+              <div class="ml-auto mr-3 pb-3">
                 <button
-                  class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800"
+                  class="text-whiteblue py-2 px-4 "
                 >
                   View
                 </button>
                 <button
-                  class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded dark:bg-gray-800"
+                  class="text-whitered py-2 px-4 "
                 >
                   Close
                 </button>
@@ -99,7 +106,31 @@
             </div>
           </div>
         </div>
-        <div class="response"></div>
+        <div class="response flex flex-col gap-5 items-center">
+          <div class="addTask mt-16 ml-15 flex flex-col items-center gap-4">
+            <div class="adddd flex flex-row">
+              <i class="fa-solid fa-circle-plus ml-5 mt-2 pr-2"></i> 
+              <label for="fileInput" class="file-label">
+                <span class="">Add Work</span>
+                <input type="file" id="fileInput" class="hidden" />
+              </label>
+            </div>
+            <button class="submit">Submit</button>
+          </div>
+          <div class="addComment flex flex-col items-center gap-y-4">
+            <div>
+              <i class="fa-solid fa-user"></i>
+              <label for="comment" class="comment-label">
+                <span>Private Comment</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-x-2">
+                <input type="text" name="" id="commment">
+                <i class="fa-solid fa-paper-plane"></i>
+              </div>
+            </div> 
+          </div>
+        </div>
       </div>
     </div>
 
