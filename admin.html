@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <link href="css/style.css" rel="stylesheet" />
+    <link href="css/output.css" rel="stylesheet" />
   </head>
   <body class="bg-white dark:bg-gray-500 flex flex-col min-h-screen">
     <header
@@ -23,18 +24,27 @@
           </h2>
         </div>
       </div>
-      <div class="flex justify-end w-full">
-        <i class="bx bx-task text-white"></i>
-        <span class="text-white mr-4">Tasks</span>
-        <i class="ml-4 bx bx-group text-white"></i>
-        <span class="text-white mr-4">Employees</span>
+      <div class="flex items-center">
+        <button class="hover:cursor-pointer border-none text-white" id="">
+          <i class="bx bx-task text-white"></i>
+          <span class="text-white mr-4">Tasks</span>
+        </button>
+        <button class="hover:cursor-pointer border-none text-white" id="">
+          <i class="ml-4 bx bx-group text-white"></i>
+          <span class="text-white mr-4">Employees</span>
+        </button>
+        <button class="hover:cursor-pointer border-none text-white" id="">
+          <i class="ml-4 bx bx-user text-white"></i>
+          <span class="text-white mr-4">My Account</span>
+        </button>
 
-        <i class="ml-4 bx bx-user text-white"></i>
-        <span class="text-white mr-4">My Account</span>
-
-        <i class="fa-solid fa-arrow-right-from-bracket ml-4 text-white"></i>
-
-        <span class="text-white">Logout</span>
+        <button
+          class="hover:cursor-pointer border-none text-white"
+          id="button-logout"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket ml-4"></i>
+          <span class="ml-2">Logout</span>
+        </button>
       </div>
 
       <div class="absolute top-4 right-4" id="themeToggle">
@@ -42,60 +52,69 @@
       </div>
     </header>
     <div class="flex-grow flex-col items-start dark:bg-gray-300">
-      <div class="relative flex items-center dark:bg-gray-300 ml-4 mt-4">
-        <div class="relative flex items-center dark:bg-gray-300">
-          <input
-            type="text"
-            placeholder="Search..."
-            class="pl-4 pr-10 py-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600"
-          />
+      <div
+        class="relative flex items-center dark:bg-gray-300 ml-4 mt-4 modify-mobile"
+      >
+        <div class="flex flex-row items-center modify-mobile-1">
+          <div class="relative flex items-center dark:bg-gray-300">
+            <input
+              type="text"
+              placeholder="Search..."
+              class="pl-4 pr-10 py-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600"
+            />
+            <i
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 bx bx-search-alt text-gray-400 dark:text-white text-lg"
+            ></i>
+          </div>
           <i
-            class="absolute right-3 top-1/2 transform -translate-y-1/2 bx bx-search-alt text-gray-400 dark:text-white text-lg"
+            class="ml-1 fa-solid fa-rotate text-lg text-gray-400 top-1/2 dark:text-white"
           ></i>
         </div>
-        <i
-          class="ml-1 fa-solid fa-rotate text-lg text-gray-400 top-1/2 dark:text-white"
-        ></i>
+        <div class="flex flex-row modify-mobile-2">
+          <div class="flex items-center relative ml-4">
+            <select
+              class="block text-white appearance-none w-full bg-blue-600 dark:bg-gray-800 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500"
+            >
+              <option>Status(All)</option>
+            </select>
+            <div
+              class="bg-blue-600 dark:bg-gray-800 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <i class="fa-solid fa-chevron-down text-white"></i>
+            </div>
+          </div>
 
-        <div class="flex items-center relative ml-4">
-          <select
-            class="block text-white appearance-none w-full bg-blue-600 dark:bg-gray-800 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500"
-          >
-            <option>Status(All)</option>
-          </select>
-          <div
-            class="bg-blue-600 dark:bg-gray-800 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <i class="fa-solid fa-chevron-down text-white"></i>
+          <div class="flex items-center relative ml-4">
+            <select
+              class="block text-white appearance-none w-full bg-blue-600 dark:bg-gray-800 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500"
+            >
+              <option>Employees(All)</option>
+            </select>
+            <div
+              class="bg-blue-600 dark:bg-gray-800 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <i class="fa-solid fa-chevron-down text-white"></i>
+            </div>
           </div>
         </div>
-
-        <div class="flex items-center relative ml-4">
-          <select
-            class="block text-white appearance-none w-full bg-blue-600 dark:bg-gray-800 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500"
-          >
-            <option>Employees(All)</option>
-          </select>
-          <div
-            class="bg-blue-600 dark:bg-gray-800 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <i class="fa-solid fa-chevron-down text-white"></i>
-          </div>
-        </div>
-        <div class="ml-auto mr-2">
+        <div class="ml-auto mr-2 modify-mobile-3">
           <button
             class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800"
+            id="generateTableButton"
           >
             Add
           </button>
           <button
-            class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded dark:bg-gray-800"
+            class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded dark:bg-gray-800 ml-4"
           >
             Delete
           </button>
         </div>
       </div>
-      <table class="mt-4 table-auto text-white w-full">
+      <div id="tableContainer" class="hidden mt-4 flex justify-center">
+        <!-- Table will be inserted here -->
+      </div>
+      <table class="mt-4 table-auto text-white w-full mb-4 table-scrollable">
         <thead>
           <tr class="bg-blue-600 dark:bg-gray-800">
             <th class="px-4 py-2">Task Name</th>
@@ -119,23 +138,5 @@
     ></script>
 
     <script src="js/all.js"></script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="js/loadFooter.js"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          screens: {
-            md: "600px",
-          },
-          extend: {
-            colors: {
-              clifford: "#da373d",
-            },
-          },
-        },
-      };
-    </script>
   </body>
 </html>
