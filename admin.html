@@ -17,14 +17,14 @@
     >
       <div class="flex items-center">
         <img src="images/aau-logo.jpg" alt="AAU" />
-        <div class="flex flex-col ml-4">
+        <div class="flex flex-col ml-4 size-title">
           <h1 class="text-white">ADDIS ABABA UNIVERSITY</h1>
           <h2 class="text-white">
             SEEK WISDOM, ELEVATE YOUR INTELLECT AND SERVE HUMANITY!
           </h2>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center manage-display">
         <button class="hover:cursor-pointer border-none text-white" id="">
           <i class="bx bx-task text-white"></i>
           <span class="text-white mr-4">Tasks</span>
@@ -47,10 +47,55 @@
         </button>
       </div>
 
-      <div class="absolute top-4 right-4" id="themeToggle">
-        <i class="bx bx-moon text-white dark:text-gray-300"></i>
+      <div
+        class="flex absolute top-4 right-4 items-center text-lg text-white dark:text-gray-300"
+      >
+        <div class="hover:cursor-pointer" id="themeToggle">
+          <i class="bx bx-moon"></i>
+        </div>
+        <i
+          class="fa-solid fa-bars ml-4 large hover:cursor-pointer hover:border-white manage-display-2 hidden-2"
+          id="bars"
+        ></i>
       </div>
     </header>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="hidden hidden-2" id="mobile-menu">
+      <div
+        class="bg-blue-600 dark:bg-gray-800 shadow-md rounded-mine py-4 text-white w-full"
+      >
+        <button
+          class="hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          id=""
+        >
+          <i class="ml-4 bx bx-task"></i>
+          <span class="mr-4">Tasks</span>
+        </button>
+        <button
+          class="hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          id=""
+        >
+          <i class="ml-4 bx bx-group"></i>
+          <span class="mr-4">Employees</span>
+        </button>
+        <button
+          class="hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          id=""
+        >
+          <i class="ml-4 bx bx-user"></i>
+          <span class="mr-4">My Account</span>
+        </button>
+
+        <button
+          class="hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          id="button-logout"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket ml-4"></i>
+          <span class="ml-2">Logout</span>
+        </button>
+      </div>
+    </div>
     <div class="flex-grow flex-col items-start dark:bg-gray-300">
       <div
         class="relative flex items-center dark:bg-gray-300 ml-4 mt-4 modify-mobile"
@@ -138,5 +183,6 @@
     ></script>
 
     <script src="js/all.js"></script>
+    <script src="js/loadFooter.js"></script>
   </body>
 </html>

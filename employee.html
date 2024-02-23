@@ -9,11 +9,13 @@
       rel="stylesheet"
     />
     <link href="css/employee.css" rel="stylesheet" />
+    <link href="css/output.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
   </head>
 
   <body class="bg-white dark:bg-gray-500 flex flex-col min-h-screen">
     <header
-      class="bg-blue-600 dark:bg-gray-800 h-20 md:h-28 flex flex-col items-start px-4"
+      class="bg-blue-600 dark:bg-gray-800 h-28 flex flex-col items-start px-4"
     >
       <div class="flex items-center">
         <img src="images/aau-logo.jpg" alt="AAU" />
@@ -24,18 +26,25 @@
           </h2>
         </div>
       </div>
-      <div class="flex justify-end w-full">
-        <i class="bx bx-user text-white"></i>
-        <span class="text-white mr-4">My Account</span>
-        <i class="bx bx-arrow-right-from-bracket ml-4 text-white"></i>
-        <span class="text-white">Logout</span>
+      <div class="flex items-center">
+        <button class="hover:cursor-pointer border-none text-white" id="">
+          <i class="ml-4 bx bx-user text-white"></i>
+          <span class="text-white mr-4">My Account</span>
+        </button>
+        <button
+          class="hover:cursor-pointer border-none text-white"
+          id="button-logout"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket ml-4"></i>
+          <span class="ml-2">Logout</span>
+        </button>
       </div>
       <div class="absolute top-4 right-4" id="themeToggle">
         <i class="bx bx-moon text-white dark:text-gray-300"></i>
       </div>
     </header>
 
-    <div class="flex-grow flex-col items-start dark:bg-gray-300">
+    <!-- <div class="flex-grow flex-col items-start dark:bg-gray-300">
       <div class="grid grid-cols-2 gap-4">
         <div class="card w-full h-full">
           <div
@@ -132,6 +141,124 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div class="flex-grow flex flex-row items-start dark:bg-gray-300">
+      <div class="hidden">
+        <div
+          class="w-56 border border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+        >
+          <p class="font-bold font-s2">Upcoming</p>
+          <p class="text-gray-400 mt-4 font-s">Woohoo, no work due soon!</p>
+          <button
+            class="hover:cursor-pointer hover:bg-gray-100 border-none font-bold block font-s2 mt-4 ml-auto py-2 px-4 rounded"
+          >
+            View all
+          </button>
+        </div>
+        <div class="flex flex-col w-full mr-5">
+          <div
+            class="w-full border hover:cursor-pointer hover:bg-gray-100 border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+          >
+            <div class="flex items-center flex-row">
+              <i class="fa-solid fa-clipboard-check font-s3 mr-4"></i>
+              <div class="">
+                <p class="font-s2-3">Task-1</p>
+                <p class="font-s text-gray-400">Jan-3, 2023</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="w-full border hover:cursor-pointer hover:bg-gray-100 border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+          >
+            <div class="flex items-center flex-row">
+              <i class="fa-solid fa-clipboard-check font-s3 mr-4"></i>
+              <div class="">
+                <p class="font-s2-3">Task-2</p>
+                <p class="font-s text-gray-400">Jan-4, 2023</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="w-full border hover:cursor-pointer hover:bg-gray-100 border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+          >
+            <div class="flex items-center flex-row">
+              <i class="fa-solid fa-clipboard-check font-s3 mr-4"></i>
+              <div class="">
+                <p class="font-s2-3">Task-3</p>
+                <p class="font-s text-gray-400">Feb-4, 2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex w-full item-start mx-4 my-4">
+        <i class="fa-solid fa-circle-info font-s3 text-gray-600 pad-l"></i>
+        <div class="flex flex-col w-full">
+          <h1 class="font-s3">Details</h1>
+          <p class="font-s text-gray-400">Task Name: Research</p>
+          <p class="font-s text-gray-400">
+            Description: Academic research on AI
+          </p>
+          <p class="font-s text-gray-400">Start Date: Feb-2-2023</p>
+          <p class="font-s text-gray-400">End Date: Mar-1-2024</p>
+          <div class="hover:cursor-pointer mt-2">
+            <div class="border-me flex flex-row">
+              <p class="font-s2-3 mr-4">File:</p>
+              <div>Attached file</div>
+            </div>
+          </div>
+          <div
+            class="w-full border border-black border-thin mt-4 rounded shadow-lg"
+          >
+            <div class="flex items-start flex-col ml-4 mt-4">
+              <div class="flex flex-row items-center">
+                <i class="fa-regular fa-user font-s2-3 mr-2"></i>
+                <p class="font-s2-3">Private comments</p>
+              </div>
+              <div class="w-full mt-2" id="new-comment">
+                <div class="flex flex-row items-start">
+                  <div class="w-14">
+                    <img
+                      src="images/profile.jpg"
+                      alt="profile"
+                      class="rounded-full h-12 w-12"
+                    />
+                  </div>
+                  <div class="ml-2 flex flex-col w-full px-2">
+                    <div class="flex items-center flex-row">
+                      <p class="font-s2-3 mr-2">Dawit Girma</p>
+                      <p class="font-s2 text-gray-400">Nov 2, 2023</p>
+                    </div>
+
+                    <p class="font-s2-3 mt-2 text-gray-600 w-full">
+                      We have already completed the major tasks of the project.
+                      I will submit the final document next tomorrow
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="flex flex-row items-center w-full my-4"
+                id="insert-element"
+              >
+                <textarea
+                  id="newText"
+                  rows="2"
+                  style="resize: none"
+                  placeholder="Add private comment..."
+                  class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
+                ></textarea>
+                <i
+                  class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
+                  id="insertContentBtn"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="footerContainer"></div>
@@ -140,22 +267,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/all.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/loadFooter.js"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          screens: {
-            md: "600px",
-          },
-          extend: {
-            colors: {
-              clifford: "#da373d",
-            },
-          },
-        },
-      };
-    </script>
   </body>
 </html>

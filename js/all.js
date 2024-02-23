@@ -42,7 +42,7 @@ function generateTable() {
   // Create a new table element
   const table = document.createElement("table");
   table.className =
-    "table-auto  w-50 border-collapse  border-manage  dark:border-gray-600 border-solid";
+    "table-auto  w-50 border-collapse  border-manage  dark:border-gray-600 border-solid mobile-manip";
 
   // Create table header
   const headerRow = table.insertRow();
@@ -52,27 +52,25 @@ function generateTable() {
     "bg-blue-600 text-white px-4 py-2 font-bold text-center  dark:bg-gray-800";
   headerCell.textContent = "Tasks List";
 
-  // Create task rows
   const tasks = ["Research", "Development", "Teaching"];
   tasks.forEach((task) => {
     const taskRow = table.insertRow();
 
-    taskRow.classList.add("flex");
-
-    const checkboxCell = taskRow.insertCell();
-    const taskCell = taskRow.insertCell();
+    // Create cell for checkbox
+    const Cell = taskRow.insertCell();
     const taskId = "task" + index;
-    checkboxCell.innerHTML = `<input type="checkbox" id="${taskId}" class="rounded border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400">`;
 
-    checkboxCell.classList.add("ml-4");
-    const label = document.createElement("label");
-    label.textContent = task;
-    label.htmlFor = taskId;
+    Cell.colSpan = "2";
 
-    // Insert label into task cell
+    Cell.innerHTML = `
+    <div class= "flex items-center px-4 ">
+    <input type="checkbox" id="${taskId}" class="rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400">
+    <label for="${taskId}"> ${task}</label> 
 
-    taskCell.appendChild(label);
-    //taskCell.textContent = task;
+    </div>
+    `;
+
+    // Increment index for unique IDs
     index++;
   });
 
@@ -175,23 +173,25 @@ function generateTable() {
   footerCell.textContent = "Employees List";
 
   // Create task rows
-  const employees = ["Dawit Girma", "Saron Tewodros", "Henok Kinde"];
+  const employees = ["Dawit Girma Firew", "Saron Tewodros", "Henok Kinde"];
   employees.forEach((employee) => {
-    const employeeRow = table.insertRow();
-    employeeRow.classList.add("flex");
-    const checkboxCell = employeeRow.insertCell();
-    const employeeCell = employeeRow.insertCell();
+    const taskRow = table.insertRow();
+
+    // Create cell for checkbox
+    const Cell = taskRow.insertCell();
     const empID = "employee" + index2;
-    checkboxCell.innerHTML = `<input type="checkbox" id="${empID}">`;
-    checkboxCell.classList.add("ml-4");
 
-    const label = document.createElement("label");
-    label.textContent = employee;
-    label.htmlFor = empID;
-    employeeCell.appendChild(label);
+    Cell.colSpan = "2";
 
-    // Insert label into task cell
+    Cell.innerHTML = `
+    <div class= "flex items-center px-4 ">
+    <input type="checkbox" id="${empID}" class="rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400">
+    <label for="${empID}"> ${employee}</label> 
 
+    </div>
+    `;
+
+    // Increment index for unique IDs
     index2++;
   });
 
@@ -318,7 +318,7 @@ function generateTable() {
   }
 
   //success message
-  const success = `<p id="success-task" class=" hidden form-row text-center bg-green-100-rounded text-green-800 ml-4 mr-4 mb-4">You have successfully added a task. </p>`;
+  const success = `<p id="success-task" class=" hidden form-row text-center dark:bg-black dark:text-white rounded bg-green-100-rounded text-green-800   ml-4 mr-4 mb-4">You have successfully added a task. </p>`;
   document
     .getElementById("success-message")
     .insertAdjacentHTML("afterend", success);
@@ -389,7 +389,7 @@ function generateTable() {
     .getElementById("cancelButton2")
     .addEventListener("click", cancelButtonClick);
 
-  const success2 = `<p id="success-task2" class="hidden text-center bg-green-100-rounded text-green-800 ml-4 mr-4 mb-4">You have successfully assigned task(s). </p>`;
+  const success2 = `<p id="success-task2" class="hidden dark:bg-black dark:text-white text-center bg-green-100-rounded text-green-800 ml-4 mr-4 mb-4">You have successfully assigned task(s). </p>`;
   document
     .getElementById("success-message-2")
     .insertAdjacentHTML("afterend", success2);
@@ -470,4 +470,62 @@ logoutButton.addEventListener("click", function () {
   window.location.href = "index.html";
 });
 
-//
+const navHide = function () {
+  document.getElementById("mobile-menu").classList.add("hidden");
+};
+
+document.querySelectorAll(".nav-hide").forEach((item) => {
+  item.addEventListener("click", navHide);
+});
+
+document.getElementById("bars").addEventListener("click", () => {
+  const val = document.getElementById("mobile-menu");
+  if (val.classList.contains("hidden")) {
+    val.classList.remove("hidden");
+  } else {
+    val.classList.add("hidden");
+  }
+});
+
+//comment adder employee
+
+document
+  .getElementById("insertContentBtn")
+  .addEventListener("click", function () {
+    // Read the value of the textarea
+    var newText = document.getElementById("newText").value;
+
+    // Create the new content
+    var newContent = `
+    <div class="w-full mt-2 " id="new-comment">
+      <div class="flex flex-row items-start">
+        <div class="w-14">
+          <img
+            src="images/profile.jpg"
+            alt="profile"
+            class="rounded-full h-12 w-12"
+          />
+        </div>
+        <div class="ml-2 flex flex-col w-full px-2">
+          <div class="flex items-center flex-row">
+            <p class="font-s2-3 mr-2">Your Name</p>
+            <p class="font-s2 text-gray-400">Feb 23, 2024</p>
+          </div>
+
+          <p class="font-s2-3 mt-2 text-gray-600 w-full">${newText}</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+    // Replace the first two paragraphs and change the image source
+    var firstTwoParagraphs = document.querySelectorAll("p.font-s2-3");
+    firstTwoParagraphs[0].textContent = "Your new text for the first paragraph";
+    firstTwoParagraphs[1].textContent =
+      "Your new text for the second paragraph";
+    var profileImage = document.querySelector("img.rounded-full");
+    profileImage.src = "your-new-image-source.jpg";
+
+    // Append the new content at the end
+    document.body.insertAdjacentHTML("beforeend", newContent);
+  });
