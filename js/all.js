@@ -19,18 +19,6 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-function togglePasswordVisibility() {
-  var passwordInput = document.getElementById("password");
-  var checkbox = document.getElementById("chk");
-
-  // Toggle password visibility based on checkbox state
-  if (checkbox.checked) {
-    passwordInput.type = "text";
-  } else {
-    passwordInput.type = "password";
-  }
-}
-
 function generateTable() {
   index = 1;
   // Get the table container
@@ -76,21 +64,26 @@ function generateTable() {
 
   const Addrow = [
     [
-      "Start Date*",
+      `<span>Start Date</span><span class="important-marker">*</span>`,
       '<input id="startDate" type="date" class="border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded">',
     ],
     [
-      "Completion Date*",
+      `<span>Completion Date</span><span class="important-marker">*</span>`,
+
       '<input id="completionDate" type="date" class="border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded">',
     ],
 
     [
-      "File",
+      `<span>File</span>`,
+
       `<div class="flex items-center" >
       <input type="file" class= "hidden" id="fileInput" >
       <div id="button-file">
       <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded  dark:bg-gray-800" id = "openFileDialogBtn">Choose File</button>
       <span id="file-span"></span>
+      <div>
+      <button class="bg-red-500 dark:bg-gray-800 hover:bg-red-600 text-white py-2 px-4 rounded mr-4 mt-2 border-red-600 hidden " id="remove-file">Remove File</button>
+      </div>
       </div>
     </div>`,
     ],
@@ -100,7 +93,7 @@ function generateTable() {
     const formRow = table.insertRow();
     const labelCell = formRow.insertCell();
     const inputCell = formRow.insertCell();
-    labelCell.textContent = row[0];
+    labelCell.innerHTML = row[0];
     inputCell.innerHTML = row[1];
 
     labelCell.className = "px-4 py-2  border-row dark:border-gray-600";
@@ -124,12 +117,14 @@ function generateTable() {
 
   const formRows = [
     [
-      "Task Name*",
+      `<span>Task Name</span><span class="important-marker">*</span>`,
+
       '<input type="text" class="border task-adder border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full">',
     ],
 
     [
-      "Description",
+      `<span>Description</span>`,
+
       '<textarea rows="5" style="resize: none;" class=" task-adder border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full "></textarea>',
     ],
   ];
@@ -139,7 +134,7 @@ function generateTable() {
     formRow.className = "form-row hidden";
     const labelCell = formRow.insertCell();
     const inputCell = formRow.insertCell();
-    labelCell.textContent = row[0];
+    labelCell.innerHTML = row[0];
     inputCell.innerHTML = row[1];
     if (!(row[0] === "Description")) {
       labelCell.className = "px-4 py-2  border-row dark:border-gray-600 ";
@@ -198,12 +193,20 @@ function generateTable() {
   // Create a button row
   const buttonRow2 = table.insertRow();
   const buttonCell2 = buttonRow2.insertCell();
+  buttonCell2.classList.add("p-6");
   buttonCell2.colSpan = "2";
 
-  buttonCell2.innerHTML = `<div class="flex flex-row" id="success-message-2">
+  buttonCell2.innerHTML = `
+  <div class=" w-full border border-black border-thin p-6 h-32 dark:bg-black  rounded bg-blue-200  mb-2 ">
+    <p class="w-full font-bold font-s2 text-blue-600 dark:text-white">
+    N.B.:- Fill all required fields (fields with red *)
+    </p>
+  </div>
+  
+  <div class="flex flex-row mb-2" id="success-message-2">
  
-    <button class=" bg-red-500 dark:bg-gray-800  hover:bg-red-600 text-white py-2 px-4 rounded mr-4 mb-4  border-red-600  ml-auto" id="cancelButton2">Cancel</button>
-    <button class=" bg-blue-500  dark:bg-gray-800  hover:bg-blue-600 text-white py-2 px-4 rounded mr-4 mb-4   border-blue-600 " id="assignTaskButton">Assign</button>
+    <button class=" bg-red-500 dark:bg-gray-800  hover:bg-red-600 text-white py-2 px-4 rounded mr-4   border-red-600  ml-auto" id="cancelButton2">Cancel</button>
+    <button class=" bg-blue-500  dark:bg-gray-800  hover:bg-blue-600 text-white py-2 px-4 rounded mr-4  border-blue-600 " id="assignTaskButton">Assign</button>
     </div>
     
    `;
@@ -234,6 +237,8 @@ function generateTable() {
 
     // Set the innerHTML of detail element to the displayed name
     detail.innerHTML = displayName;
+
+    document.getElementById("remove-file").classList.remove("hidden");
   });
 
   const formRows2 = table.querySelectorAll("form-row");
@@ -360,8 +365,11 @@ function generateTable() {
 
   function cancelButtonClick() {
     const succedded = document.getElementById("success-task2");
+    const table = document.getElementById("tableContainer");
     // Get all checkboxes in the tasks
-    const taskCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    const taskCheckboxes = document.querySelectorAll(
+      '#tableContainer input[type="checkbox"]'
+    );
 
     // Check if at least one checkbox is checked
     const atLeastOneChecked = [...taskCheckboxes].some(
@@ -379,10 +387,12 @@ function generateTable() {
 
       // If confirmed, perform cancel action
       if (confirmed) {
-        tableContainer.innerHTML = "";
+        table.classList.add("hidden");
+        table.innerHTML = "";
       }
     } else {
-      tableContainer.innerHTML = "";
+      table.classList.add("hidden");
+      table.innerHTML = "";
     }
   }
   document
@@ -416,9 +426,17 @@ function generateTable() {
     const startDate = document.getElementById("startDate").value;
     const completionDate = document.getElementById("completionDate").value;
     const datesFilled = startDate !== "" && completionDate !== "";
+    const startDateObj = new Date(startDate);
+    const completionDateObj = new Date(completionDate);
+    const isValidDates = completionDateObj >= startDateObj;
 
     // If at least one checkbox is checked, prompt confirmation
-    if (atLeastOnetaskChecked && atLeastOneemployeeChecked && datesFilled) {
+    if (
+      atLeastOnetaskChecked &&
+      atLeastOneemployeeChecked &&
+      datesFilled &&
+      isValidDates
+    ) {
       if (succedded.classList.contains("hidden")) {
         succedded.classList.remove("hidden");
       }
@@ -447,10 +465,26 @@ function generateTable() {
         succedded.classList.add("hidden");
       }
       alert(
-        "Please choose atleast one task, one employee and fill start and completion dates!"
+        "Please choose atleast one task, one employee and fill start and completion dates, and completion date can not be before start date!"
       );
     }
   }
+
+  document.getElementById("remove-file").addEventListener(
+    "click",
+
+    function () {
+      const fileInput = document.getElementById("fileInput");
+
+      // Get the file span element
+      const fileSpan = document.getElementById("file-span");
+      // Clear the selected file by resetting the value of the file input
+      fileInput.value = "";
+      // Clear the file span content
+      fileSpan.textContent = "";
+      document.getElementById("remove-file").classList.add("hidden");
+    }
+  );
   document
     .getElementById("assignTaskButton")
     .addEventListener("click", assignButtonClick);
@@ -460,9 +494,43 @@ function generateTable() {
 }
 
 // Add event listener to the button
-document
-  .getElementById("generateTableButton")
-  .addEventListener("click", generateTable);
+document.getElementById("generateTableButton").addEventListener("click", () => {
+  const table = document.getElementById("tableContainer");
+  console.log(table.classList);
+  if (table.classList.contains("hidden")) {
+    generateTable();
+  } else {
+    const succedded = document.getElementById("success-task2");
+    // Get all checkboxes in the tasks
+    const taskCheckboxes = document.querySelectorAll(
+      '#tableContainer input[type="checkbox"]'
+    );
+
+    // Check if at least one checkbox is checked
+    const atLeastOneChecked = [...taskCheckboxes].some(
+      (checkbox) => checkbox.checked
+    );
+
+    // If at least one checkbox is checked, prompt confirmation
+    if (atLeastOneChecked) {
+      if (!succedded.classList.contains("hidden")) {
+        succedded.classList.add("hidden");
+      }
+      const confirmed = confirm(
+        "Are you sure you want to cancel? All the inserted data will be lost!"
+      );
+
+      // If confirmed, perform cancel action
+      if (confirmed) {
+        table.classList.add("hidden");
+        table.innerHTML = "";
+      }
+    } else {
+      table.classList.add("hidden");
+      table.innerHTML = "";
+    }
+  }
+});
 
 const logoutButton = document.getElementById("button-logout");
 
@@ -487,29 +555,247 @@ document.getElementById("bars").addEventListener("click", () => {
   }
 });
 
-//comment adder employee
+// Find the delete icon element
+const deleteIcon = document.querySelectorAll(".delete-icon");
 
-document
-  .getElementById("insertContentBtn")
-  .addEventListener("click", function () {
-    // Read the value of the textarea
-    var newText = document.getElementById("newText").value;
+// Add click event listener to the delete icon
+deleteIcon.forEach((element) => {
+  element.addEventListener("click", function () {
+    // Ask for confirmation
+    const confirmed = confirm("Are you sure you want to delete this item?");
 
-    // Create the new content
-    var newContent = `
-    <div class="w-full mt-2 " id="new-comment">
+    // If user confirms, delete the row
+    if (confirmed) {
+      // Get the parent <tr> element and remove it
+      const row = this.closest("tr");
+      row.remove();
+    }
+  });
+});
+
+const deleteButton = document.querySelector(
+  ".table-delete button:nth-of-type(2)"
+);
+const deleteAllButton = document.querySelector(
+  ".table-delete button:nth-of-type(3)"
+);
+deleteButton.addEventListener("click", function () {
+  const checkedRows = document.querySelectorAll(
+    ".table-delete input[type='checkbox']:checked"
+  );
+  if (checkedRows.length === 0) {
+    alert("Select at least one task");
+  } else {
+    const confirmed = confirm("Are you sure you want to delete this item?");
+
+    // If user confirms, delete the row
+    if (confirmed) {
+      // Get the parent <tr> element and remove it
+      checkedRows.forEach(function (row) {
+        row.closest("tr").remove();
+      });
+    }
+  }
+});
+
+deleteAllButton.addEventListener("click", function () {
+  const confirmation = confirm("Are you sure you want to delete all tasks?");
+  if (confirmation) {
+    const rows = document.querySelectorAll(".table-delete tr");
+    rows.forEach(function (row, index) {
+      if (index !== 0 && index !== rows.length - 1) {
+        // Skip the first and last rows
+        row.remove();
+      }
+    });
+  }
+});
+
+const checkboxes = document.querySelectorAll(
+  ".table-delete input[type='checkbox']"
+);
+const cancelButton = document.querySelector(
+  ".table-delete button:nth-of-type(1)"
+);
+cancelButton.addEventListener("click", function () {
+  checkboxes.forEach(function (checkbox) {
+    checkbox.checked = false;
+  });
+  document.getElementById("table-for-delete").classList.add("hidden");
+});
+const table = document.getElementById("table-for-delete");
+
+document.getElementById("delete-delete").addEventListener("click", () => {
+  if (table.classList.contains("hidden")) {
+    table.classList.remove("hidden");
+  } else {
+    checkboxes.forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
+    table.classList.add("hidden");
+  }
+});
+
+document.getElementById("showTaskButton").addEventListener("click", () => {
+  const table2 = document.getElementById("table-for-show");
+  table2.classList.toggle("hidden");
+});
+
+document.querySelectorAll(".emp-event").forEach((element) => {
+  element.addEventListener("click", () => {
+    document.getElementById("emp").classList.remove("hidden");
+
+    document.getElementById("my-account").classList.add("hidden");
+    document.getElementById("detail").classList.add("hidden");
+    document.getElementById("main-2").classList.add("hidden");
+    document.getElementById("main").classList.add("hidden");
+  });
+});
+
+//search employee table
+
+const searchInput = document.getElementById("search-emp");
+const searchIcon = document.getElementById("search-icon-2");
+const reloadIcon = document.getElementById("reload-icon");
+const tableRows = document.querySelectorAll("#table-for-emp tr");
+
+searchIcon.addEventListener("click", function () {
+  const searchText = searchInput.value.trim().toLowerCase();
+
+  tableRows.forEach(function (row) {
+    if (row !== tableRows[0]) {
+      const rowData = row.textContent.toLowerCase();
+      if (rowData.includes(searchText)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    }
+  });
+});
+
+reloadIcon.addEventListener("click", function () {
+  tableRows.forEach(function (row) {
+    row.style.display = "";
+  });
+  searchInput.value = "";
+});
+
+//task assign
+
+document.querySelectorAll(".task-assign").forEach((element) => {
+  element.addEventListener("click", () => {
+    document.getElementById("emp").classList.add("hidden");
+
+    document.getElementById("main").classList.remove("hidden");
+    document.getElementById("main-2").classList.add("hidden");
+    document.getElementById("detail").classList.add("hidden");
+
+    document.getElementById("my-account").classList.add("hidden");
+  });
+});
+
+//private comments
+
+// Find the button element
+var viewCommentsButton = document.querySelectorAll(".view-comments-button");
+
+let exists = false;
+
+// Add event listener to the button
+viewCommentsButton.forEach((element) => {
+  element.addEventListener("click", function () {
+    // Find the table row containing the button
+    let tableRow = element.closest("tr");
+
+    // Check if the private comments section is already added
+    let existingPrivateComments = tableRow.nextElementSibling;
+
+    console.log("hi");
+    if (existingPrivateComments) {
+      let justify = existingPrivateComments.querySelector("td");
+
+      if (justify.classList.contains("private-comments-section")) {
+        existingPrivateComments.remove();
+
+        exists = false;
+      }
+      // If the private comments section already exists, remove it
+      else {
+        // Create a new table row for the private comments section
+        var newRow = document.createElement("tr");
+        newRow.innerHTML = `
+          <td colspan="9" class="text-black private-comments-section">
+            <div class="w-full border border-black border-thin mt-4 rounded shadow-lg mb-2 ">
+              <!-- Private comments section content -->
+            
+              <div class="flex items-start flex-col ml-4 mt-4">
+                <div class="flex flex-row items-center">
+                  <i class="fa-regular fa-user font-s2-3 mr-2"></i>
+                  <p class="font-s2-3" id="num-comments">Private comments</p>
+                </div>
+             
+    
+                <div
+                  class="flex flex-row items-center w-full my-4"
+                  id="insert-element"
+                >
+                  <textarea
+                    id="newText"
+                    rows="2"
+                    style="resize: none"
+                    placeholder="Add private comment..."
+                    class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
+                  ></textarea>
+                  <i
+                    class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
+                    id="insertContentBtn"
+                  ></i>
+                </div>
+              </div>
+          
+          </td>
+        `;
+
+        // Insert the new row after the current row
+        tableRow.parentNode.insertBefore(newRow, tableRow.nextSibling);
+        exists = true;
+
+        addcomment();
+      }
+    }
+  });
+});
+
+let num = 1;
+
+const addcomment = (simple = false) => {
+  if (exists) {
+    document
+      .getElementById("insertContentBtn")
+      .addEventListener("click", function () {
+        // Read the value of the textarea
+        let position = document.getElementById("newText");
+        var newText = position.value;
+        if (newText.trim() !== "") {
+          let imageSource = "images/profile.jpg";
+          let name = "Henok Kinde";
+          let date = "Jan 5, 2024";
+          // Create the new content
+          var newContent = `
+    <div class="w-full mt-4 " >
       <div class="flex flex-row items-start">
         <div class="w-14">
           <img
-            src="images/profile.jpg"
+            src= "${imageSource}"
             alt="profile"
             class="rounded-full h-12 w-12"
           />
         </div>
         <div class="ml-2 flex flex-col w-full px-2">
           <div class="flex items-center flex-row">
-            <p class="font-s2-3 mr-2">Your Name</p>
-            <p class="font-s2 text-gray-400">Feb 23, 2024</p>
+            <p class="font-s2-3 mr-2">${name}</p>
+            <p class="font-s2 text-gray-400">${date}</p>
           </div>
 
           <p class="font-s2-3 mt-2 text-gray-600 w-full">${newText}</p>
@@ -517,15 +803,377 @@ document
       </div>
     </div>
   `;
+          position.value = "";
 
-    // Replace the first two paragraphs and change the image source
-    var firstTwoParagraphs = document.querySelectorAll("p.font-s2-3");
-    firstTwoParagraphs[0].textContent = "Your new text for the first paragraph";
-    firstTwoParagraphs[1].textContent =
-      "Your new text for the second paragraph";
-    var profileImage = document.querySelector("img.rounded-full");
-    profileImage.src = "your-new-image-source.jpg";
+          // Append the new content at the end
+          document
+            .getElementById("insert-element")
+            .insertAdjacentHTML("beforebegin", newContent);
 
-    // Append the new content at the end
-    document.body.insertAdjacentHTML("beforeend", newContent);
+          if (num != 1) {
+            document.getElementById(
+              "num-comments"
+            ).textContent = `${num} private comments`;
+          }
+          num++;
+        }
+      });
+  }
+  if (simple) {
+    // Read the value of the textarea
+    let position = document.getElementById("newText-2");
+    var newText = position.value;
+    if (newText.trim() !== "") {
+      let imageSource = "images/profile.jpg";
+      let name = "Henok Kinde";
+      let date = "Jan 5, 2024";
+      // Create the new content
+      var newContent = `
+<div class="w-full mt-4 " >
+  <div class="flex flex-row items-start">
+    <div class="w-14">
+      <img
+        src= "${imageSource}"
+        alt="profile"
+        class="rounded-full h-12 w-12"
+      />
+    </div>
+    <div class="ml-2 flex flex-col w-full px-2">
+      <div class="flex items-center flex-row">
+        <p class="font-s2-3 mr-2">${name}</p>
+        <p class="font-s2 text-gray-400">${date}</p>
+      </div>
+
+      <p class="font-s2-3 mt-2 text-gray-600 w-full">${newText}</p>
+    </div>
+  </div>
+</div>
+`;
+      position.value = "";
+
+      // Append the new content at the end
+      document
+        .getElementById("insert-element-2")
+        .insertAdjacentHTML("beforebegin", newContent);
+
+      if (num != 1) {
+        document.getElementById(
+          "num-comments-2"
+        ).textContent = `${num} private comments`;
+      }
+      num++;
+    }
+  }
+};
+
+document.getElementById("insertContentBtn-2").addEventListener("click", () => {
+  addcomment(true);
+});
+
+//task-manage
+
+var tableTask = document.getElementById("task-manage");
+
+// Get all delete buttons within the table and attach click event listener
+var deleteButtons = tableTask
+  .querySelector(".delete-button")
+  .addEventListener("click", () => {
+    const checkedRows = tableTask.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+    if (checkedRows.length === 0) {
+      alert("Select at least one task");
+    } else {
+      checkedRows.forEach(function (row) {
+        row.closest("tr").remove();
+      });
+    }
   });
+
+// Get delete all button within the table and attach click event listener
+var deleteAllButton2 = tableTask.querySelector(".delete-all-button");
+deleteAllButton2.addEventListener("click", function () {
+  const confirmation = confirm("Are you sure you want to delete all tasks?");
+  if (confirmation) {
+    const rows = tableTask.querySelectorAll("tr");
+    rows.forEach(function (row, index) {
+      if (index !== 0 && index !== rows.length - 1) {
+        // Skip the first and last rows
+        row.remove();
+      }
+    });
+  }
+});
+
+// Get all trash icons within the table and attach click event listener
+const deleteIcon2 = tableTask.querySelectorAll(".delete-icon-2");
+
+// Add click event listener to the delete icon
+deleteIcon2.forEach((element) => {
+  element.addEventListener("click", function () {
+    // Ask for confirmation
+    const confirmed = confirm("Are you sure you want to delete this item?");
+
+    // If user confirms, delete the row
+    if (confirmed) {
+      // Get the parent <tr> element and remove it
+      const row = this.closest("tr");
+      row.remove();
+    }
+  });
+});
+
+const checkboxes2 = tableTask.querySelectorAll("input[type='checkbox']");
+const cancelButton2 = tableTask.querySelector(".cancel-2");
+cancelButton2.addEventListener("click", function () {
+  checkboxes2.forEach(function (checkbox) {
+    checkbox.checked = false;
+  });
+});
+
+//serach main
+var table2 = document.getElementById("task-manage");
+
+// Get the search input element
+var searchInput2 = document.getElementById("search-input");
+
+// Get the search icon element
+var searchIcon2 = document.getElementById("search-icon");
+
+// Get the rotate icon element
+var rotateIcon = document.getElementById("rotate-icon");
+
+var taskRows = Array.from(table2.querySelectorAll(".task-row")).slice(1, -1);
+
+// Add click event listener to the search icon
+searchIcon2.addEventListener("click", function () {
+  // Get the search query
+  var searchQuery = searchInput2.value.toLowerCase().trim();
+
+  // Get all task rows excluding the first and last
+
+  // Loop through each task row
+  taskRows.forEach(function (row) {
+    const rowData = row.textContent.toLowerCase();
+    if (rowData.includes(searchQuery)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
+});
+
+rotateIcon.addEventListener("click", function () {
+  taskRows.forEach(function (row) {
+    row.style.display = "";
+  });
+  searchInput2.value = "";
+});
+
+// Get the select element
+var statusSelect = document.querySelector("#status-select");
+
+// Add change event listener to the select element
+statusSelect.addEventListener("change", function () {
+  // Get the selected status value
+  var selectedStatus = this.value.toLocaleLowerCase().trim();
+
+  // Get all task rows excluding the first and last
+  var taskRows2 = Array.from(document.querySelectorAll(".task-row")).slice(
+    1,
+    -1
+  );
+
+  // Loop through each task row
+  taskRows2.forEach(function (row) {
+    // Get the status from the row
+    var status = row
+      .querySelector(".status")
+      .textContent.toLocaleLowerCase()
+      .trim();
+
+    // Show the row if it matches the selected status, hide otherwise
+    if (selectedStatus === "status(all)") {
+      taskRows.forEach(function (row) {
+        row.style.display = "";
+      });
+    } else {
+      if (status === selectedStatus) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    }
+  });
+});
+
+document.querySelectorAll(".my-task").forEach((task) => {
+  task.addEventListener("click", () => {
+    document.getElementById("emp").classList.add("hidden");
+
+    document.getElementById("my-account").classList.add("hidden");
+    document.getElementById("detail").classList.add("hidden");
+    document.getElementById("main-2").classList.remove("hidden");
+    document.getElementById("main").classList.add("hidden");
+  });
+});
+
+document.querySelectorAll(".my-account-btn").forEach((task) => {
+  task.addEventListener("click", () => {
+    document.getElementById("emp").classList.add("hidden");
+
+    document.getElementById("main").classList.add("hidden");
+    document.getElementById("main-2").classList.add("hidden");
+    document.getElementById("detail").classList.add("hidden");
+
+    document.getElementById("my-account").classList.remove("hidden");
+  });
+});
+
+document.querySelectorAll(".select-detail").forEach((element) => {
+  element.addEventListener("click", () => {
+    const manipulateDetail = document.getElementById("detail");
+    manipulateDetail.classList.remove("hidden");
+    document.getElementById("main-2").classList.add("hidden");
+  });
+});
+
+document.getElementById("back-arrow").addEventListener("click", () => {
+  const manipulateDetail = document.getElementById("detail");
+  manipulateDetail.classList.add("hidden");
+  document.getElementById("main-2").classList.remove("hidden");
+});
+
+const openFileDialogBtn = document.getElementById("openFileDialogBtn");
+const fileInput = document.getElementById("fileInput");
+
+// Add event listener to the button
+openFileDialogBtn.addEventListener("click", () => {
+  // Trigger the file input when button is clicked
+  fileInput.click();
+});
+
+// Add event listener to the file input to handle file selection
+fileInput.addEventListener("change", (event) => {
+  // Get the selected file
+  const selectedFile = event.target.files[0];
+
+  const detail = document.getElementById("file-span");
+
+  // Get the selected file name
+  const fileName = selectedFile.name;
+
+  // Check if the file name length is greater than 20 characters
+  const displayName =
+    fileName.length > 35 ? fileName.substring(0, 35) + "..." : fileName;
+
+  // Set the innerHTML of detail element to the displayed name
+  detail.innerHTML = displayName;
+
+  document.getElementById("remove-file").classList.remove("hidden");
+});
+document.getElementById("remove-file").addEventListener(
+  "click",
+
+  function () {
+    const fileInput = document.getElementById("fileInput");
+
+    // Get the file span element
+    const fileSpan = document.getElementById("file-span");
+    // Clear the selected file by resetting the value of the file input
+    fileInput.value = "";
+    // Clear the file span content
+    fileSpan.textContent = "";
+    document.getElementById("remove-file").classList.add("hidden");
+  }
+);
+
+//My account
+//
+const imageFileInput = document.getElementById("imageFile");
+const imagePreview = document.getElementById("imagePreview");
+const openFileDialogBtn2 = document.getElementById("openFileDialogBtn-2");
+
+openFileDialogBtn2.addEventListener("click", () => {
+  // Trigger the file input when button is clicked
+
+  imageFileInput.click();
+});
+
+imageFileInput.addEventListener("change", function () {
+  const file = this.files[0];
+
+  if (file) {
+    const detail = document.getElementById("file-span-2");
+
+    // Get the selected file name
+    const fileName = file.name;
+
+    // Check if the file name length is greater than 20 characters
+    const displayName =
+      fileName.length > 20 ? fileName.substring(0, 20) + "..." : fileName;
+
+    // Set the innerHTML of detail element to the displayed name
+    detail.innerHTML = displayName;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const imageUrl = event.target.result;
+      imagePreview.innerHTML = `<img src="${imageUrl}" alt="Preview">`;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    imagePreview.innerHTML = ""; // Clear the image preview if no file is selected
+  }
+});
+
+document.getElementById("myForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+  // Check if the form is valid
+  if (!this.checkValidity()) {
+    // If the form is invalid, prevent default submission
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    window.alert("The data are successfully saved!");
+    this.reset();
+  }
+});
+
+document.getElementById("myForm2").addEventListener("submit", function (event) {
+  event.preventDefault();
+  // Check if the form is valid
+  if (!this.checkValidity()) {
+    // If the form is invalid, prevent default submission
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    // Retrieve input values
+    var oldPassword = document.getElementById("text-old").value;
+    var newPassword1 = document.getElementById("text-new1").value;
+    var newPassword2 = document.getElementById("text-new2").value;
+
+    // Check if all fields have at least four characters
+    if (
+      oldPassword.length < 4 ||
+      newPassword1.length < 4 ||
+      newPassword2.length < 4
+    ) {
+      alert("Password must be at least 4 characters long.");
+      return; // Stop further execution
+    }
+    if (newPassword1 !== newPassword2) {
+      alert("New Password and Confirm New Password must match.");
+      return; // Stop further execution
+    }
+    window.alert("The password is successfully changed!");
+    this.reset();
+  }
+});
+
+document.getElementById("reset-all").addEventListener("click", () => {
+  imagePreview.innerHTML = "";
+  // Clear the display name
+  const detail = document.getElementById("file-span-2");
+  detail.innerHTML = "";
+});

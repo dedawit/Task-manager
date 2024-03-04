@@ -1,5 +1,11 @@
-const loginButton = document.getElementById("button-login");
+function togglePasswordVisibility() {
+  var passwordInput = document.getElementById("password");
+  var checkbox = document.getElementById("chk");
 
-loginButton.addEventListener("click", function () {
-  window.location.href = "admin.html";
-});
+  // Toggle password visibility based on checkbox state
+  if (checkbox.checked) {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+}

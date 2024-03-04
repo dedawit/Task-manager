@@ -19,30 +19,76 @@
     >
       <div class="flex items-center">
         <img src="images/aau-logo.jpg" alt="AAU" />
-        <div class="flex flex-col ml-4">
+        <div class="flex flex-col ml-4 aau-mobile-emp">
           <h1 class="text-white">ADDIS ABABA UNIVERSITY</h1>
           <h2 class="text-white">
             SEEK WISDOM, ELEVATE YOUR INTELLECT AND SERVE HUMANITY!
           </h2>
         </div>
       </div>
-      <div class="flex items-center">
-        <button class="hover:cursor-pointer border-none text-white" id="">
-          <i class="ml-4 bx bx-user text-white"></i>
-          <span class="text-white mr-4">My Account</span>
+      <div class="flex items-center mobile-map">
+        <button
+          class="my-task hover:cursor-pointer border-none text-white mr-4"
+        >
+          <i class="fa-solid fa-list-check"></i>
+          <span class="text-white">My Tasks</span>
         </button>
         <button
-          class="hover:cursor-pointer border-none text-white"
+          class="my-account-btn ml-4 hover:cursor-pointer border-none text-white mr-4"
+          id=""
+        >
+          <i class="bx bx-user"></i>
+          <span class="text-white">My Account</span>
+        </button>
+        <button
+          class="button-logout ml-4 hover:cursor-pointer border-none text-white ml-2"
+          id=""
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="">Logout</span>
+        </button>
+      </div>
+      <div
+        class="flex absolute top-4 right-4 items-center text-lg text-white dark:text-gray-300"
+      >
+        <div class="hover:cursor-pointer" id="themeToggle">
+          <i class="bx bx-moon sizer"></i>
+        </div>
+        <i
+          class="fa-solid fa-bars ml-4 large hover:cursor-pointer hover:border-white manage-display-2-emp"
+          id="bars"
+        ></i>
+      </div>
+    </header>
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="hidden" id="mobile-menu">
+      <div
+        class="bg-blue-600 dark:bg-gray-800 shadow-md rounded-mine py-4 text-white w-full"
+      >
+        <button
+          class="ml-4 my-task mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          id=""
+        >
+          <i class="fa-solid fa-list-check"></i>
+          <span class="text-white ml-2">My Tasks</span>
+        </button>
+        <button
+          class="my-account-btn ml-4 mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          id=""
+        >
+          <i class="bx bx-user"></i>
+          <span class="text-white ml-2">My Account</span>
+        </button>
+
+        <button
+          class="button-logout ml-4 mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
           id="button-logout"
         >
-          <i class="fa-solid fa-arrow-right-from-bracket ml-4"></i>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
           <span class="ml-2">Logout</span>
         </button>
       </div>
-      <div class="absolute top-4 right-4" id="themeToggle">
-        <i class="bx bx-moon text-white dark:text-gray-300"></i>
-      </div>
-    </header>
+    </div>
 
     <!-- <div class="flex-grow flex-col items-start dark:bg-gray-300">
       <div class="grid grid-cols-2 gap-4">
@@ -143,120 +189,502 @@
       </div>
     </div> -->
 
-    <div class="flex-grow flex flex-row items-start dark:bg-gray-300">
-      <div class="hidden">
+    <div class="flex-grow flex flex-col dark:bg-gray-300">
+      <div class="flex flex-row items-start w-full" id="main">
         <div
-          class="w-56 border border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+          class="w-80 border border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4 upcoming dark:bg-gray-800"
         >
-          <p class="font-bold font-s2">Upcoming</p>
+          <p class="font-bold font-s2 dark:text-white">Upcoming</p>
           <p class="text-gray-400 mt-4 font-s">Woohoo, no work due soon!</p>
           <button
-            class="hover:cursor-pointer hover:bg-gray-100 border-none font-bold block font-s2 mt-4 ml-auto py-2 px-4 rounded"
+            class="dark:text-white hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 border-none font-bold block font-s2 mt-4 ml-auto py-2 px-4 rounded"
           >
             View all
           </button>
         </div>
         <div class="flex flex-col w-full mr-5">
           <div
-            class="w-full border hover:cursor-pointer hover:bg-gray-100 border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+            class="select-detail w-full border hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:bg-gray-800 border-black border-thin p-6 h-32 mt-2 mb-2 rounded ml-4 mr-4"
           >
             <div class="flex items-center flex-row">
-              <i class="fa-solid fa-clipboard-check font-s3 mr-4"></i>
+              <i
+                class="fa-solid fa-clipboard-check font-s3 mr-4 dark:text-white"
+              ></i>
               <div class="">
-                <p class="font-s2-3">Task-1</p>
+                <p class="font-s2-3 dark:text-white">Task-1</p>
                 <p class="font-s text-gray-400">Jan-3, 2023</p>
               </div>
             </div>
           </div>
           <div
-            class="w-full border hover:cursor-pointer hover:bg-gray-100 border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+            class="select-detail w-full border hover:cursor-pointer dark:hover:bg-gray-700 dark:bg-gray-800 hover:bg-gray-100 border-black border-thin p-6 h-32 mt-2 mb-2 rounded ml-4 mr-4"
           >
             <div class="flex items-center flex-row">
-              <i class="fa-solid fa-clipboard-check font-s3 mr-4"></i>
+              <i
+                class="fa-solid fa-clipboard-check font-s3 mr-4 dark:text-white"
+              ></i>
               <div class="">
-                <p class="font-s2-3">Task-2</p>
+                <p class="font-s2-3 dark:text-white">Task-2</p>
                 <p class="font-s text-gray-400">Jan-4, 2023</p>
               </div>
             </div>
           </div>
           <div
-            class="w-full border hover:cursor-pointer hover:bg-gray-100 border-black border-thin p-6 h-32 mt-4 rounded ml-4 mr-4"
+            class="select-detail w-full border hover:cursor-pointer dark:hover:bg-gray-700 dark:bg-gray-800 hover:bg-gray-100 border-black border-thin p-6 h-32 mt-2 mb-2 rounded ml-4 mr-4"
           >
             <div class="flex items-center flex-row">
-              <i class="fa-solid fa-clipboard-check font-s3 mr-4"></i>
+              <i
+                class="fa-solid fa-clipboard-check font-s3 mr-4 dark:text-white"
+              ></i>
               <div class="">
-                <p class="font-s2-3">Task-3</p>
+                <p class="font-s2-3 dark:text-white">Task-3</p>
                 <p class="font-s text-gray-400">Feb-4, 2023</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex w-full item-start mx-4 my-4">
-        <i class="fa-solid fa-circle-info font-s3 text-gray-600 pad-l"></i>
-        <div class="flex flex-col w-full">
-          <h1 class="font-s3">Details</h1>
-          <p class="font-s text-gray-400">Task Name: Research</p>
-          <p class="font-s text-gray-400">
-            Description: Academic research on AI
-          </p>
-          <p class="font-s text-gray-400">Start Date: Feb-2-2023</p>
-          <p class="font-s text-gray-400">End Date: Mar-1-2024</p>
-          <div class="hover:cursor-pointer mt-2">
-            <div class="border-me flex flex-row">
-              <p class="font-s2-3 mr-4">File:</p>
-              <div>Attached file</div>
-            </div>
-          </div>
-          <div
-            class="w-full border border-black border-thin mt-4 rounded shadow-lg"
-          >
-            <div class="flex items-start flex-col ml-4 mt-4">
-              <div class="flex flex-row items-center">
-                <i class="fa-regular fa-user font-s2-3 mr-2"></i>
-                <p class="font-s2-3">Private comments</p>
-              </div>
-              <div class="w-full mt-2" id="new-comment">
-                <div class="flex flex-row items-start">
-                  <div class="w-14">
-                    <img
-                      src="images/profile.jpg"
-                      alt="profile"
-                      class="rounded-full h-12 w-12"
-                    />
-                  </div>
-                  <div class="ml-2 flex flex-col w-full px-2">
-                    <div class="flex items-center flex-row">
-                      <p class="font-s2-3 mr-2">Dawit Girma</p>
-                      <p class="font-s2 text-gray-400">Nov 2, 2023</p>
-                    </div>
 
-                    <p class="font-s2-3 mt-2 text-gray-600 w-full">
-                      We have already completed the major tasks of the project.
-                      I will submit the final document next tomorrow
-                    </p>
+      <!-- Details -->
+      <div class="flex flex-col item-start mx-4 my-4 hidden" id="detail">
+        <i
+          class="fa-solid fa-arrow-left hover:cursor-pointer font-s3 text-gray-600 py-4"
+          id="back-arrow"
+        ></i>
+        <div class="flex flex-row item-start">
+          <i class="fa-solid fa-circle-info font-s3 text-gray-600 pad-l"></i>
+          <div class="flex flex-col w-full">
+            <h1 class="font-s3">Details</h1>
+            <p class="font-s text-gray-400">Task Name: Research</p>
+            <p class="font-s text-gray-400">
+              Description: Academic research on AI
+            </p>
+            <p class="font-s text-gray-400">Start Date: Feb-2-2023</p>
+            <p class="font-s text-gray-400">End Date: Mar-1-2024</p>
+            <div class="hover:cursor-pointer mt-2">
+              <div class="border-me flex flex-row">
+                <p class="font-s2-3 mr-4">File:</p>
+                <div>Attached file</div>
+              </div>
+            </div>
+            <div
+              class="w-full border border-black border-thin mt-4 rounded shadow-lg"
+            >
+              <div class="flex items-start flex-col ml-4 mt-4">
+                <p class="font-s2-3" id="num-comments">Your work</p>
+
+                <div class="flex items-center">
+                  <input type="file" class="hidden" id="fileInput" />
+                  <div id="button-file" class="mb-2">
+                    <button
+                      class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800 mb-2 mt-2"
+                      id="openFileDialogBtn"
+                    >
+                      Choose File
+                    </button>
+                    <span id="file-span"></span>
+                    <div class="mt-2 mb-2">
+                      <button
+                        class="hidden bg-red-500 dark:bg-gray-800 hover:bg-red-600 text-white py-2 px-4 rounded mr-4 border-red-600"
+                        id="remove-file"
+                      >
+                        Remove File
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+            <div
+              class="w-full border border-black border-thin mt-4 rounded shadow-lg"
+            >
+              <div class="flex items-start flex-col ml-4 mt-4">
+                <div class="flex flex-row items-center">
+                  <i class="fa-regular fa-user font-s2-3 mr-2"></i>
+                  <p class="font-s2-3" id="num-comments">Private comments</p>
+                </div>
 
-              <div
-                class="flex flex-row items-center w-full my-4"
-                id="insert-element"
-              >
-                <textarea
-                  id="newText"
-                  rows="2"
-                  style="resize: none"
-                  placeholder="Add private comment..."
-                  class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
-                ></textarea>
-                <i
-                  class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
-                  id="insertContentBtn"
-                ></i>
+                <div
+                  class="flex flex-row items-center w-full my-4"
+                  id="insert-element"
+                >
+                  <textarea
+                    id="newText"
+                    rows="2"
+                    style="resize: none"
+                    placeholder="Add private comment..."
+                    class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
+                  ></textarea>
+                  <i
+                    class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
+                    id="insertContentBtn"
+                  ></i>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!--My Account-->
+      <div id="my-account" class="hidden w-full flex flex-col">
+        <div
+          class="border border-black border-thin mx-4 my-4 rounded shadow-lg mobile-form"
+        >
+          <form
+            id="myForm2"
+            class="mobile-form max-w-md mx-auto bg-white p-8 rounded shadow-md dark:bg-gray-800"
+          >
+            <p class="font-s3-2 dark:text-white">Change Password</p>
+            <div class="w-full horizontal">
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-old" class="dark:text-white"
+                  >Old Password <span class="important-marker">*</span></label
+                >
+                <input
+                  type="password"
+                  name="text-old"
+                  id="text-old"
+                  placeholder="Old Password"
+                  required
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-new1" class="dark:text-white"
+                  >New Password <span class="important-marker">*</span></label
+                >
+                <input
+                  type="password"
+                  name="text-new1"
+                  id="text-new1"
+                  placeholder="New Password "
+                  required
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-new2" class="dark:text-white"
+                  >Confirm New Password
+                  <span class="important-marker">*</span></label
+                >
+                <input
+                  type="password"
+                  name="text-new2"
+                  id="text-new2"
+                  placeholder="Confirm New Password "
+                  required
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div
+              class="width-res-2 w-full border-black border-thin p-6 h-32 mt-4 rounded bg-blue-200 dark:border-white border dark:bg-gray-800"
+            >
+              <p class="w-full font-bold font-s2 text-blue-600 dark:text-white">
+                N.B.:- Password must be atleast 4 digits/letters. Fill all
+                required fields (fields with red *).
+              </p>
+            </div>
+            <div class="flex flex-row w-full mt-4 my-2 w-manage">
+              <button
+                type="reset"
+                class="dark:hover:bg-gray-700 border w-full bg-red-500 dark:bg-gray-800 dark:border-white hover:bg-red-600 text-white py-2 px-4 rounded mr-4 border-red-600 mx-2"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                id="submit=save"
+                class="dark:hover:bg-gray-700 border w-full px-4 py-2 bg-blue-500 text-white rounded dark:border-white dark:bg-gray-800 hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mx-2"
+              >
+                Change
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- Account details -->
+        <div
+          class="border border-black border-thin mx-4 my-4 rounded shadow-lg mobile-form dark:bg-gray-800"
+        >
+          <form
+            id="myForm"
+            class="mobile-form max-w-md mx-auto bg-white p-8 rounded shadow-md dark:bg-gray-800"
+          >
+            <p class="font-s3-2 dark:text-white">Account Details</p>
+            <div class="w-full horizontal">
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-first" class="dark:text-white"
+                  >First Name <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-first"
+                  placeholder="First Name"
+                  required
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-middle" class="dark:text-white"
+                  >Middle Name <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-middle"
+                  placeholder="Middle Name"
+                  required
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Last Name <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-last"
+                  required
+                  placeholder="Last Name"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div class="w-full horizontal">
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="date-birth" class="dark:text-white"
+                  >Date Of Birth <span class="important-marker">*</span></label
+                >
+                <input
+                  type="date"
+                  id="date-birth"
+                  required
+                  name="dateField"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Place Of Birth <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-place"
+                  required
+                  placeholder="Place Of Birth"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Phone No. <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-phone"
+                  required
+                  placeholder="Phone No."
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div class="w-full horizontal">
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Nationality <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-nationality"
+                  required
+                  placeholder="Nationality"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="select-region" class="dark:text-white"
+                  >Region <span class="important-marker">*</span></label
+                >
+
+                <select
+                  id="selectElement"
+                  name="selectElement"
+                  required
+                  class="dark:bg-gray-700 dark:text-white dark:border-white w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 mt-2"
+                >
+                  <option value="">Select Region</option>
+
+                  <option value="Addis Ababa">Addis Ababa</option>
+                  <option value="Afar">Afar</option>
+                  <option value="Amhara">Amhara</option>
+                  <option value="Benishangul-Gumuz">Benishangul-Gumuz</option>
+                  <option value="Central Ethiopia Regional State">
+                    Central Ethiopia Regional State
+                  </option>
+                  <option value="Dire Dawa">Dire Dawa</option>
+                  <option value="Gambela">Gambela</option>
+                  <option value="Harari">Harari</option>
+                  <option value="Oromia">Oromia</option>
+                  <option value="Sidama">Sidama</option>
+                  <option value="Somali">Somali</option>
+                  <option value="South Ethiopia Regional State">
+                    South Ethiopia Regional State
+                  </option>
+                  <option value="South West Ethiopia Peoples' Region">
+                    South West Ethiopia Peoples' Region
+                  </option>
+                  <option value="Tigray">Tigray</option>
+                </select>
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Zone/ Subcity <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  required
+                  name="textbox1"
+                  id="text-zone"
+                  placeholder="Zone/ Subcity"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div class="w-full horizontal">
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Woreda <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  required
+                  id="text-woreda"
+                  placeholder="Woreda"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Kebele <span class="important-marker">*</span></label
+                >
+                <input
+                  type="text"
+                  name="textbox1"
+                  required
+                  id="text-kebele"
+                  placeholder="Kebele"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white">Town</label>
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-town"
+                  placeholder="Town"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div class="w-full horizontal">
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white">House No.</label>
+                <input
+                  type="number"
+                  name="textbox1"
+                  id="text-house"
+                  placeholder="House No."
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white">P.O.Box</label>
+                <input
+                  type="text"
+                  name="textbox1"
+                  id="text-pob"
+                  placeholder="P.O.Box"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="flex flex-col my-2 mx-2 w-full">
+                <label for="text-last" class="dark:text-white"
+                  >Email <span class="important-marker">*</span></label
+                >
+                <input
+                  type="email"
+                  name="textbox1"
+                  required
+                  id="text-email"
+                  placeholder="Email"
+                  class="dark:bg-gray-700 dark:border-white dark:text-white w-full px-4 py-2 mt-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label
+                for="imageFile"
+                class="block text-sm font-medium text-gray-700 dark:text-white"
+                >Select Profile Image<span class="important-marker"
+                  >*</span
+                ></label
+              >
+
+              <input
+                type="file"
+                required
+                id="imageFile"
+                name="imageFile"
+                accept="image/*"
+                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md hidden"
+              />
+              <div class="mb-2">
+                <button
+                  type="button"
+                  class="dark:hover:bg-gray-700 dark:border-white border bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800 mb-2 mt-2"
+                  id="openFileDialogBtn-2"
+                >
+                  Choose Image
+                </button>
+                <span id="file-span-2"></span>
+              </div>
+            </div>
+
+            <!-- Image preview rectangle -->
+            <div id="imagePreview" class="mt-4 mb-8 bg-white"></div>
+            <div
+              class="w-full border-black border-thin p-6 h-32 mt-4 rounded bg-blue-200 width-res dark:border-white border dark:bg-gray-800 dark:text-white"
+            >
+              <p class="w-full font-bold font-s2 text-blue-600 dark:text-white">
+                N.B.:- Fill all required fields (fields with red *) and Save.
+              </p>
+            </div>
+            <div class="flex flex-row w-full mt-4 my-2 w-manage">
+              <button
+                id="reset-all"
+                type="reset"
+                class="dark:hover:bg-gray-700 w-full bg-red-500 dark:bg-gray-800 dark:border-white border hover:bg-red-600 text-white py-2 px-4 rounded mr-4 border-red-600 mx-2"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                id="submit=save"
+                class="dark:hover:bg-gray-700 dark:border-white border w-full px-4 py-2 bg-blue-500 dark:bg-gray-800 text-white rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mx-2"
+              >
+                Save
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -266,7 +694,7 @@
       src="https://kit.fontawesome.com/7e7a1d31dc.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/all.js"></script>
+    <script src="js/employee.js"></script>
     <script src="js/loadFooter.js"></script>
   </body>
 </html>
