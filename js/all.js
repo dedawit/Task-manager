@@ -135,34 +135,34 @@ document.querySelectorAll(".emp-event").forEach((element) => {
   });
 });
 
-//search employee table
+// //search employee table
 
-const searchInput = document.getElementById("search-emp");
-const searchIcon = document.getElementById("search-icon-2");
-const reloadIcon = document.getElementById("reload-icon");
-const tableRows = document.querySelectorAll("#table-for-emp tr");
+// const searchInput = document.getElementById("search-emp");
+// const searchIcon = document.getElementById("search-icon-2");
+// const reloadIcon = document.getElementById("reload-icon");
+// const tableRows = document.querySelectorAll("#table-for-emp tr");
 
-searchIcon.addEventListener("click", function () {
-  const searchText = searchInput.value.trim().toLowerCase();
+// searchIcon.addEventListener("click", function () {
+//   const searchText = searchInput.value.trim().toLowerCase();
 
-  tableRows.forEach(function (row) {
-    if (row !== tableRows[0]) {
-      const rowData = row.textContent.toLowerCase();
-      if (rowData.includes(searchText)) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    }
-  });
-});
+//   tableRows.forEach(function (row) {
+//     if (row !== tableRows[0]) {
+//       const rowData = row.textContent.toLowerCase();
+//       if (rowData.includes(searchText)) {
+//         row.style.display = "";
+//       } else {
+//         row.style.display = "none";
+//       }
+//     }
+//   });
+// });
 
-reloadIcon.addEventListener("click", function () {
-  tableRows.forEach(function (row) {
-    row.style.display = "";
-  });
-  searchInput.value = "";
-});
+// reloadIcon.addEventListener("click", function () {
+//   tableRows.forEach(function (row) {
+//     row.style.display = "";
+//   });
+//   searchInput.value = "";
+// });
 
 //task assign
 

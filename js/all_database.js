@@ -650,7 +650,7 @@ function deleteTasksFromDatabase() {
       <input id=${
         taskNames + i
       } type="checkbox" class="rounded dark:border-gray-600 dark:text-white border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400" />
-      <label for=${taskNames + i}>${taskNames[i]}</label>
+      <label >${taskNames[i]}</label>
     </div>
   `;
           newRow.appendChild(checkboxCell);
@@ -1179,6 +1179,7 @@ function assignTasks() {
     get(savedTasksRef).then((snapshot) => {
       snapshot.forEach((taskSnapshot) => {
         const taskData = taskSnapshot.val();
+
         if (selectedTasks.includes(taskData.name)) {
           let description = taskData.description;
           if (description === "") {
@@ -1250,6 +1251,7 @@ function assignTasks() {
             task.filenameAdminURL = file.name;
 
             // Update the database with the task including the download URL
+
             update(
               ref(
                 database,
@@ -1449,16 +1451,6 @@ function updateTaskManagerTable() {
             let cell2 = row.insertCell();
             cell2.className = "border-delete dark:border-gray-600";
             cell2.appendChild(completedFileBtn);
-
-            // Add last button
-            var commentsBtn = document.createElement("button");
-            commentsBtn.className =
-              "bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-gray-800 ml-2 mt-2 mb-2 mr-2 view-comments-button";
-            commentsBtn.textContent = "View/ Add Comments";
-
-            let cell3 = row.insertCell();
-            cell3.className = "border-delete-no-left dark:border-gray-600";
-            cell3.appendChild(commentsBtn);
 
             // Add delete icon
             var deleteIcon = document.createElement("i");
@@ -1863,32 +1855,7 @@ function empUpdateTaskManagerTable() {
                 </div>
               </div>
             </div>
-            <div
-              class="w-full border border-black border-thin mt-4 rounded shadow-lg"
-            >
-              <div class="flex items-start flex-col ml-4 mt-4">
-                <div class="flex flex-row items-center">
-                  <i class="fa-regular fa-user font-s2-3 mr-2"></i>
-                  <p class="font-s2-3" id="num-comments-2">Private comments</p>
-                </div>
-
-                <div
-                  class="flex flex-row items-center w-full my-4"
-                  id="insert-element-2"
-                >
-                  <textarea
-                    id="newText-2"
-                    rows="2"
-                    style="resize: none"
-                    placeholder="Add private comment..."
-                    class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
-                  ></textarea>
-                  <i
-                    class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
-                    id="insertContentBtn-2"
-                  ></i>
-                </div>
-              </div>
+        
             </div>
           </div>
         </div>
@@ -2064,6 +2031,46 @@ function empUpdateTaskManagerTable() {
                 }
               });
 
+            function viewNow() {
+              let database = ref(
+                db,
+                `Task-Manager/Assigned-Tasks/${id}/fileNameEmpURL`
+              );
+              return get(database)
+                .then((snap) => {
+                  if (snap.val()) {
+                    let storagePath =
+                      "Completed-Tasks/" + id + "/" + snap.val();
+
+                    // Create a reference to the file in Firebase Storage
+                    let storageRef2 = storageRefNominal(
+                      getStorage(app),
+                      storagePath
+                    );
+
+                    // Get the download URL for the file
+                    getDownloadURL(storageRef2)
+                      .then(function (url) {
+                        // Set the file URL as the href attribute
+                        urlFinal2 = url;
+                        viewer.href = urlFinal2;
+                        viewer.download = snap.val();
+                        // Set the download attribute to prompt the user to save the file with the filename
+                      })
+                      .catch(function (error) {
+                        // Handle any errors that occur
+                        console.error("Error getting download URL:", error);
+                        alert("Error in downloading file");
+                      });
+                  }
+                })
+                .catch((error) => {
+                  console.error("error is link attachement", error);
+                });
+            }
+
+            viewNow();
+
             viewer.addEventListener("click", function () {
               let database = ref(
                 db,
@@ -2181,3 +2188,95 @@ function empUpdateTaskManagerTable() {
 }
 
 empUpdateTaskManagerTable();
+
+function fetchDataAndPopulateTable() {
+  let empAssignedId = sessionStorage.getItem("username").replace(".", "-");
+
+  const db = getDatabase(app);
+  // Get reference to the table
+  const table = document.getElementById("table-for-emp");
+
+  const rowsToDelete = Array.from(
+    table.querySelectorAll("tr:not(:first-child)")
+  );
+
+  // Delete each row
+  rowsToDelete.forEach((row) => row.remove());
+
+  // Clear existing rows from the table
+
+  // Counter for numbering rows
+  let count = 0;
+
+  var dbRef = ref(db, "Task-Manager/MyAccount");
+
+  return get(dbRef)
+    .then((snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        var childData = childSnapshot.val();
+
+        var id = childSnapshot.key;
+
+        if (id !== empAssignedId) {
+          count++;
+
+          // Create a new row in the table
+          const newRow = table.insertRow();
+
+          // Add cells to the row
+          const cell1 = newRow.insertCell(0);
+          const cell2 = newRow.insertCell(1);
+          const cell3 = newRow.insertCell(2);
+          const cell4 = newRow.insertCell(3);
+
+          const cell5 = newRow.insertCell(4);
+
+          cell1.classList.add("border-delete", "dark:border-gray-600");
+          cell2.classList.add("border-delete", "dark:border-gray-600");
+          cell3.classList.add("border-delete", "dark:border-gray-600");
+          cell4.classList.add("border-delete", "dark:border-gray-600");
+          cell5.classList.add("border-delete", "dark:border-gray-600");
+
+          // Create the HTML structure for each cell
+          cell1.innerHTML = `<div class="flex items-center px-4 py-2">${count}</div>`;
+          cell2.innerHTML = `<div class="flex items-center px-4 py-2">${childData.firstName} ${childData.middleName} ${childData.lastName}</div>`;
+          cell3.innerHTML = `<div class="flex items-center px-4 py-2">${childData.dob}</div>`;
+          cell4.innerHTML = `<div class="flex items-center px-4 py-2">${childData.phone}</div>`;
+          cell5.innerHTML = `<div class="flex items-center px-4 py-2">${childData.email}</div>`;
+        }
+      });
+      //search employee table
+
+      const searchInput = document.getElementById("search-emp");
+      const searchIcon = document.getElementById("search-icon-2");
+      const reloadIcon = document.getElementById("reload-icon");
+      const tableRows = document.querySelectorAll("#table-for-emp tr");
+
+      searchIcon.addEventListener("click", function () {
+        const searchText = searchInput.value.trim().toLowerCase();
+
+        tableRows.forEach(function (row) {
+          if (row !== tableRows[0]) {
+            const rowData = row.textContent.toLowerCase();
+            if (rowData.includes(searchText)) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          }
+        });
+      });
+
+      reloadIcon.addEventListener("click", function () {
+        tableRows.forEach(function (row) {
+          row.style.display = "";
+        });
+        searchInput.value = "";
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+fetchDataAndPopulateTable();
