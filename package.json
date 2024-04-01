@@ -1,7 +1,6 @@
 {
   "name": "task-manager",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "ansi-regex": "^6.0.1",
@@ -27,6 +26,7 @@
     "fast-glob": "^3.3.2",
     "fastq": "^1.17.1",
     "fill-range": "^7.0.1",
+    "firebase": "^10.8.1",
     "foreground-child": "^3.1.1",
     "function-bind": "^1.1.2",
     "glob": "^10.3.10",
@@ -100,5 +100,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": [],
+  "description": ""
 }

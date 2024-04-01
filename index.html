@@ -26,7 +26,7 @@
       </div>
 
       <div class="absolute top-4 right-4" id="themeToggle">
-        <i class="bx bx-moon text-white dark:text-gray-300"></i>
+        <i class="bx bx-moon text-white dark:text-gray-300 sizer"></i>
       </div>
     </header>
 
@@ -35,7 +35,9 @@
         <div
           class="size-med bg-white dark:bg-gray-800 w-full rounded-lg shadow-lg p-8 flex flex-col items-start"
         >
-          <h1 class="text-blue-600 text-4xl mb-8 dark:text-white">Login</h1>
+          <h1 class="text-blue-600 text-4xl mb-8 dark:text-white sizer">
+            Login
+          </h1>
 
           <form action="" class="w-full">
             <div class="mb-4 relative">
@@ -43,6 +45,7 @@
                 type="text"
                 placeholder="Username"
                 required
+                id="username"
                 class="w-full border-2 border-gray-300 bg-gray-100 dark:bg-gray-700 dark:text-white h-12 px-3 rounded-lg focus:outline-none focus:border-blue-400"
               />
               <i class="bx bxs-user absolute right-3 top-3 dark:text-white"></i>
@@ -77,7 +80,8 @@
               >
             </div>
             <button
-              type="submit"
+              id="login"
+              type="button"
               class="w-full bg-blue-600 dark:bg-purple-800 text-white rounded-lg px-4 py-2 hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
             >
               Login
@@ -91,6 +95,7 @@
 
     <script src="js/login.js"></script>
     <script src="js/loadFooter.js"></script>
+    <script type="module" src="js/login_database.js"></script>
 
     <script
       src="https://kit.fontawesome.com/7e7a1d31dc.js"

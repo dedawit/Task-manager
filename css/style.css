@@ -11,7 +11,7 @@
 
 .border-row {
   border-top: 1px solid #2563eb; /* Apply blue color to top border */
-  border-bottom: 1px solid #2563eb; /* Apply blue color to bottom border */
+  border-bottom: 1px solid #2563eb;
 }
 
 .border-delete {
@@ -19,6 +19,9 @@
   border-right: 1px solid #2563eb;
 }
 
+.border-delete-no-left {
+  border-bottom: 1px solid #2563eb;
+}
 .text-green-800 {
   color: #33c633;
 }
@@ -516,4 +519,41 @@
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:text-gray-800) {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+.text-center {
+  text-align: center;
+}
+
+.p-3 {
+  padding: 0.75rem /* 12px */;
+}
+
+.mt-2 {
+  margin-top: 0.5rem /* 8px */;
+}
+.mb-2 {
+  margin-bottom: 0.5rem /* 8px */;
+}
+
+.border-top-white {
+  border-top: 1px solid #fff !important;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.anchor-style {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.mr-2 {
+  margin-right: 0.5rem /* 8px */;
 }

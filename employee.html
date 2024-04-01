@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Employees page</title>
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -43,6 +44,7 @@
         <button
           class="button-logout ml-4 hover:cursor-pointer border-none text-white ml-2"
           id=""
+          onclick="logout()"
         >
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
           <span class="">Logout</span>
@@ -66,25 +68,26 @@
         class="bg-blue-600 dark:bg-gray-800 shadow-md rounded-mine py-4 text-white w-full"
       >
         <button
-          class="ml-4 my-task mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          class="my-task mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
           id=""
         >
-          <i class="fa-solid fa-list-check"></i>
+          <i class="ml-4 fa-solid fa-list-check"></i>
           <span class="text-white ml-2">My Tasks</span>
         </button>
         <button
-          class="my-account-btn ml-4 mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          class="my-account-btn mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
           id=""
         >
-          <i class="bx bx-user"></i>
+          <i class="ml-4 bx bx-user"></i>
           <span class="text-white ml-2">My Account</span>
         </button>
 
         <button
-          class="button-logout ml-4 mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
+          class="button-logout mr-4 hover:cursor-pointer border-none block px-4 py-2 hover:bg-blue-300 dark:hover:bg-black dark:bg-opacity-25 font-medium w-full flex justify-start items-center nav-hide"
           id="button-logout"
+          onclick="logout()"
         >
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <i class="ml-4 fa-solid fa-arrow-right-from-bracket"></i>
           <span class="ml-2">Logout</span>
         </button>
       </div>

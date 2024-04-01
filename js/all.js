@@ -19,519 +19,6 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-function generateTable() {
-  index = 1;
-  // Get the table container
-  const tableContainer = document.getElementById("tableContainer");
-
-  // Clear any existing content
-  tableContainer.innerHTML = "";
-
-  // Create a new table element
-  const table = document.createElement("table");
-  table.className =
-    "table-auto  w-50 border-collapse  border-manage  dark:border-gray-600 border-solid mobile-manip";
-
-  // Create table header
-  const headerRow = table.insertRow();
-  const headerCell = headerRow.insertCell();
-  headerCell.colSpan = "2";
-  headerCell.className =
-    "bg-blue-600 text-white px-4 py-2 font-bold text-center  dark:bg-gray-800";
-  headerCell.textContent = "Tasks List";
-
-  const tasks = ["Research", "Development", "Teaching"];
-  tasks.forEach((task) => {
-    const taskRow = table.insertRow();
-
-    // Create cell for checkbox
-    const Cell = taskRow.insertCell();
-    const taskId = "task" + index;
-
-    Cell.colSpan = "2";
-
-    Cell.innerHTML = `
-    <div class= "flex items-center px-4 ">
-    <input type="checkbox" id="${taskId}" class="rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400">
-    <label for="${taskId}"> ${task}</label> 
-
-    </div>
-    `;
-
-    // Increment index for unique IDs
-    index++;
-  });
-
-  const Addrow = [
-    [
-      `<span>Start Date</span><span class="important-marker">*</span>`,
-      '<input id="startDate" type="date" class="border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded">',
-    ],
-    [
-      `<span>Completion Date</span><span class="important-marker">*</span>`,
-
-      '<input id="completionDate" type="date" class="border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded">',
-    ],
-
-    [
-      `<span>File</span>`,
-
-      `<div class="flex items-center" >
-      <input type="file" class= "hidden" id="fileInput" >
-      <div id="button-file">
-      <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded  dark:bg-gray-800" id = "openFileDialogBtn">Choose File</button>
-      <span id="file-span"></span>
-      <div>
-      <button class="bg-red-500 dark:bg-gray-800 hover:bg-red-600 text-white py-2 px-4 rounded mr-4 mt-2 border-red-600 hidden " id="remove-file">Remove File</button>
-      </div>
-      </div>
-    </div>`,
-    ],
-  ];
-
-  Addrow.forEach((row) => {
-    const formRow = table.insertRow();
-    const labelCell = formRow.insertCell();
-    const inputCell = formRow.insertCell();
-    labelCell.innerHTML = row[0];
-    inputCell.innerHTML = row[1];
-
-    labelCell.className = "px-4 py-2  border-row dark:border-gray-600";
-    inputCell.className = "px-4 py-2  border-row dark:border-gray-600 ";
-  });
-
-  // Create "Add new task" row
-  const addTaskRow = table.insertRow();
-  const addTaskCell = addTaskRow.insertCell();
-  addTaskCell.colSpan = "2";
-  addTaskCell.textContent = "Add New Task";
-  addTaskCell.className =
-    "font-bold bg-blue-600   dark:bg-gray-800 text-white px-4 py-2 font-bold text-center relative";
-
-  // Create icon
-  const icon = document.createElement("div");
-  icon.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
-  icon.className =
-    "absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white";
-  addTaskCell.appendChild(icon);
-
-  const formRows = [
-    [
-      `<span>Task Name</span><span class="important-marker">*</span>`,
-
-      '<input type="text" class="border task-adder border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full">',
-    ],
-
-    [
-      `<span>Description</span>`,
-
-      '<textarea rows="5" style="resize: none;" class=" task-adder border border-gray-300 focus:outline-none focus:border-blue-500 dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full "></textarea>',
-    ],
-  ];
-
-  formRows.forEach((row) => {
-    const formRow = table.insertRow();
-    formRow.className = "form-row hidden";
-    const labelCell = formRow.insertCell();
-    const inputCell = formRow.insertCell();
-    labelCell.innerHTML = row[0];
-    inputCell.innerHTML = row[1];
-    if (!(row[0] === "Description")) {
-      labelCell.className = "px-4 py-2  border-row dark:border-gray-600 ";
-      inputCell.className = "px-4 py-2  border-row dark:border-gray-600 ";
-    } else {
-      labelCell.className = "px-4 py-2  ";
-      inputCell.className = "px-4 py-2  ";
-    }
-  });
-
-  // Create a button row
-  const buttonRow = table.insertRow();
-  const buttonCell = buttonRow.insertCell();
-  buttonCell.colSpan = "2";
-
-  buttonCell.innerHTML = `
-  <div class="flex flex-row" id="success-message">
- 
-    <button class=" hidden  dark:bg-gray-800 form-row bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-4 mb-4  border-red-600  ml-auto" id="cancelButton">Cancel</button>
-    <button class="hidden  dark:bg-gray-800 form-row bg-blue-500  hover:bg-blue-600 text-white py-2 px-4 rounded mr-4 mb-4   border-blue-600 " id="addTaskButton">Add</button>
-    </div>
-    
-   `;
-
-  // Create table header
-  const footerRow = table.insertRow();
-  const footerCell = footerRow.insertCell();
-  footerCell.colSpan = "2";
-  footerCell.className =
-    "bg-blue-600 text-white px-4 py-2 font-bold text-center  dark:bg-gray-800";
-  footerCell.textContent = "Employees List";
-
-  // Create task rows
-  const employees = ["Dawit Girma Firew", "Saron Tewodros", "Henok Kinde"];
-  employees.forEach((employee) => {
-    const taskRow = table.insertRow();
-
-    // Create cell for checkbox
-    const Cell = taskRow.insertCell();
-    const empID = "employee" + index2;
-
-    Cell.colSpan = "2";
-
-    Cell.innerHTML = `
-    <div class= "flex items-center px-4 ">
-    <input type="checkbox" id="${empID}" class="rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400">
-    <label for="${empID}"> ${employee}</label> 
-
-    </div>
-    `;
-
-    // Increment index for unique IDs
-    index2++;
-  });
-
-  // Create a button row
-  const buttonRow2 = table.insertRow();
-  const buttonCell2 = buttonRow2.insertCell();
-  buttonCell2.classList.add("p-6");
-  buttonCell2.colSpan = "2";
-
-  buttonCell2.innerHTML = `
-  <div class=" w-full border border-black border-thin p-6 h-32 dark:bg-black  rounded bg-blue-200  mb-2 ">
-    <p class="w-full font-bold font-s2 text-blue-600 dark:text-white">
-    N.B.:- Fill all required fields (fields with red *)
-    </p>
-  </div>
-  
-  <div class="flex flex-row mb-2" id="success-message-2">
- 
-    <button class=" bg-red-500 dark:bg-gray-800  hover:bg-red-600 text-white py-2 px-4 rounded mr-4   border-red-600  ml-auto" id="cancelButton2">Cancel</button>
-    <button class=" bg-blue-500  dark:bg-gray-800  hover:bg-blue-600 text-white py-2 px-4 rounded mr-4  border-blue-600 " id="assignTaskButton">Assign</button>
-    </div>
-    
-   `;
-  // Append the table to the container
-  tableContainer.appendChild(table);
-  const openFileDialogBtn = document.getElementById("openFileDialogBtn");
-  const fileInput = document.getElementById("fileInput");
-
-  // Add event listener to the button
-  openFileDialogBtn.addEventListener("click", () => {
-    // Trigger the file input when button is clicked
-    fileInput.click();
-  });
-
-  // Add event listener to the file input to handle file selection
-  fileInput.addEventListener("change", (event) => {
-    // Get the selected file
-    const selectedFile = event.target.files[0];
-
-    const detail = document.getElementById("file-span");
-
-    // Get the selected file name
-    const fileName = selectedFile.name;
-
-    // Check if the file name length is greater than 20 characters
-    const displayName =
-      fileName.length > 20 ? fileName.substring(0, 20) + "..." : fileName;
-
-    // Set the innerHTML of detail element to the displayed name
-    detail.innerHTML = displayName;
-
-    document.getElementById("remove-file").classList.remove("hidden");
-  });
-
-  const formRows2 = table.querySelectorAll("form-row");
-  formRows2.forEach((row) => {
-    row.classList.add("hidden");
-  });
-
-  function toggleRowsVisibility() {
-    const succedded = document.getElementById("success-task");
-    if (!succedded.classList.contains("hidden")) {
-      succedded.classList.add("hidden");
-    }
-
-    if (!isNonEmpty) {
-      const formRows = document.querySelectorAll(".form-row");
-      const iconC = icon.querySelector("i");
-
-      formRows.forEach((row) => {
-        if (row.classList.contains("hidden") && row.id !== "success-task") {
-          row.classList.remove("hidden");
-          iconC.classList.remove("fa-chevron-down");
-          iconC.classList.add("fa-chevron-up");
-        } else {
-          row.classList.add("hidden");
-          iconC.classList.remove("fa-chevron-up");
-          iconC.classList.add("fa-chevron-down");
-        }
-      });
-    }
-  }
-
-  // Change cursor to pointer on hover
-  icon.addEventListener("mouseenter", () => {
-    icon.style.cursor = "pointer";
-  });
-
-  // Change cursor back to default on mouse leave
-  icon.addEventListener("mouseleave", () => {
-    icon.style.cursor = "default";
-  });
-
-  let isNonEmpty = false;
-  const addButton = document.getElementById("cancelButton");
-  addButton.addEventListener("click", showAlert);
-  icon.addEventListener("click", showAlert);
-
-  icon.addEventListener("click", toggleRowsVisibility);
-
-  addButton.addEventListener("click", toggleRowsVisibility);
-
-  function showAlert() {
-    // Get all input elements
-    let inputs = document.querySelectorAll(".task-adder");
-    // Check if any input field is non-empty
-    let temp = false;
-
-    inputs.forEach((input) => {
-      if (input.value.trim() !== "") {
-        temp = true;
-      }
-    });
-
-    if (temp) {
-      isNonEmpty = true;
-    } else {
-      isNonEmpty = false;
-    }
-
-    // If any input field is non-empty, show the alert
-    if (isNonEmpty) {
-      // Set the alert text
-      const confirm = window.confirm(
-        "Are you sure you want to cancel? All the inserted data will be lost !"
-      );
-      if (confirm) {
-        isNonEmpty = false;
-        inputs.forEach((input) => {
-          input.value = "";
-        });
-      }
-    }
-  }
-
-  //success message
-  const success = `<p id="success-task" class=" hidden form-row text-center dark:bg-black dark:text-white rounded bg-green-100-rounded text-green-800   ml-4 mr-4 mb-4">You have successfully added a task. </p>`;
-  document
-    .getElementById("success-message")
-    .insertAdjacentHTML("afterend", success);
-
-  document
-    .getElementById("addTaskButton")
-    .addEventListener("click", function () {
-      const succedded = document.getElementById("success-task");
-      const taskNameInput = document.querySelector("input.task-adder");
-      const descriptionInput = document.querySelector("textarea.task-adder");
-
-      const task = taskNameInput.value.trim();
-      // Validate Task Name is not empty
-      if (taskNameInput.value.trim() === "") {
-        if (!succedded.classList.contains("hidden")) {
-          succedded.classList.add("hidden");
-        }
-        alert("Task Name is required.");
-
-        return; // Stop the function if Task Name is empty
-      }
-
-      const taskRow = table.insertRow(index);
-      taskRow.classList.add("flex");
-
-      const checkboxCell = taskRow.insertCell();
-      const taskCell = taskRow.insertCell();
-      checkboxCell.innerHTML =
-        '<input type="checkbox" class="rounded border-blue-500 text-blue-600 focus:ring-blue-400 focus:border-blue-400">';
-      checkboxCell.classList.add("ml-4");
-      taskCell.textContent = task;
-      index++;
-      taskNameInput.value = "";
-      descriptionInput.value = "";
-      if (succedded.classList.contains("hidden")) {
-        succedded.classList.remove("hidden");
-      }
-    });
-
-  function cancelButtonClick() {
-    const succedded = document.getElementById("success-task2");
-    const table = document.getElementById("tableContainer");
-    // Get all checkboxes in the tasks
-    const taskCheckboxes = document.querySelectorAll(
-      '#tableContainer input[type="checkbox"]'
-    );
-
-    // Check if at least one checkbox is checked
-    const atLeastOneChecked = [...taskCheckboxes].some(
-      (checkbox) => checkbox.checked
-    );
-
-    // If at least one checkbox is checked, prompt confirmation
-    if (atLeastOneChecked) {
-      if (!succedded.classList.contains("hidden")) {
-        succedded.classList.add("hidden");
-      }
-      const confirmed = confirm(
-        "Are you sure you want to cancel? All the inserted data will be lost!"
-      );
-
-      // If confirmed, perform cancel action
-      if (confirmed) {
-        table.classList.add("hidden");
-        table.innerHTML = "";
-      }
-    } else {
-      table.classList.add("hidden");
-      table.innerHTML = "";
-    }
-  }
-  document
-    .getElementById("cancelButton2")
-    .addEventListener("click", cancelButtonClick);
-
-  const success2 = `<p id="success-task2" class="hidden dark:bg-black dark:text-white text-center bg-green-100-rounded text-green-800 ml-4 mr-4 mb-4">You have successfully assigned task(s). </p>`;
-  document
-    .getElementById("success-message-2")
-    .insertAdjacentHTML("afterend", success2);
-
-  function assignButtonClick() {
-    const succedded = document.getElementById("success-task2");
-
-    // Get all checkboxes in the tasks
-    const taskCheckboxes = document.querySelectorAll(
-      'input[type="checkbox"][id^="task"]'
-    );
-    const employeeCheckboxes = document.querySelectorAll(
-      'input[type="checkbox"][id^="employee"]'
-    );
-
-    // Check if at least one checkbox is checked
-    const atLeastOnetaskChecked = [...taskCheckboxes].some(
-      (checkbox) => checkbox.checked
-    );
-    const atLeastOneemployeeChecked = [...employeeCheckboxes].some(
-      (checkbox) => checkbox.checked
-    );
-
-    const startDate = document.getElementById("startDate").value;
-    const completionDate = document.getElementById("completionDate").value;
-    const datesFilled = startDate !== "" && completionDate !== "";
-    const startDateObj = new Date(startDate);
-    const completionDateObj = new Date(completionDate);
-    const isValidDates = completionDateObj >= startDateObj;
-
-    // If at least one checkbox is checked, prompt confirmation
-    if (
-      atLeastOnetaskChecked &&
-      atLeastOneemployeeChecked &&
-      datesFilled &&
-      isValidDates
-    ) {
-      if (succedded.classList.contains("hidden")) {
-        succedded.classList.remove("hidden");
-      }
-      startDate.value = null;
-      completionDate.value = null;
-      // Uncheck all task checkboxes
-      taskCheckboxes.forEach((checkbox) => {
-        checkbox.checked = false;
-      });
-
-      // Uncheck all employee checkboxes
-      employeeCheckboxes.forEach((checkbox) => {
-        checkbox.checked = false;
-      });
-      // Get the file input element
-      const fileInput = document.getElementById("fileInput");
-
-      // Get the file span element
-      const fileSpan = document.getElementById("file-span");
-      // Clear the selected file by resetting the value of the file input
-      fileInput.value = "";
-      // Clear the file span content
-      fileSpan.textContent = "";
-    } else {
-      if (!succedded.classList.contains("hidden")) {
-        succedded.classList.add("hidden");
-      }
-      alert(
-        "Please choose atleast one task, one employee and fill start and completion dates, and completion date can not be before start date!"
-      );
-    }
-  }
-
-  document.getElementById("remove-file").addEventListener(
-    "click",
-
-    function () {
-      const fileInput = document.getElementById("fileInput");
-
-      // Get the file span element
-      const fileSpan = document.getElementById("file-span");
-      // Clear the selected file by resetting the value of the file input
-      fileInput.value = "";
-      // Clear the file span content
-      fileSpan.textContent = "";
-      document.getElementById("remove-file").classList.add("hidden");
-    }
-  );
-  document
-    .getElementById("assignTaskButton")
-    .addEventListener("click", assignButtonClick);
-
-  // Show the table container
-  tableContainer.classList.remove("hidden");
-}
-
-// Add event listener to the button
-document.getElementById("generateTableButton").addEventListener("click", () => {
-  const table = document.getElementById("tableContainer");
-  console.log(table.classList);
-  if (table.classList.contains("hidden")) {
-    generateTable();
-  } else {
-    const succedded = document.getElementById("success-task2");
-    // Get all checkboxes in the tasks
-    const taskCheckboxes = document.querySelectorAll(
-      '#tableContainer input[type="checkbox"]'
-    );
-
-    // Check if at least one checkbox is checked
-    const atLeastOneChecked = [...taskCheckboxes].some(
-      (checkbox) => checkbox.checked
-    );
-
-    // If at least one checkbox is checked, prompt confirmation
-    if (atLeastOneChecked) {
-      if (!succedded.classList.contains("hidden")) {
-        succedded.classList.add("hidden");
-      }
-      const confirmed = confirm(
-        "Are you sure you want to cancel? All the inserted data will be lost!"
-      );
-
-      // If confirmed, perform cancel action
-      if (confirmed) {
-        table.classList.add("hidden");
-        table.innerHTML = "";
-      }
-    } else {
-      table.classList.add("hidden");
-      table.innerHTML = "";
-    }
-  }
-});
-
 const logoutButton = document.getElementById("button-logout");
 
 logoutButton.addEventListener("click", function () {
@@ -573,73 +60,69 @@ deleteIcon.forEach((element) => {
   });
 });
 
-const deleteButton = document.querySelector(
-  ".table-delete button:nth-of-type(2)"
-);
-const deleteAllButton = document.querySelector(
-  ".table-delete button:nth-of-type(3)"
-);
-deleteButton.addEventListener("click", function () {
-  const checkedRows = document.querySelectorAll(
-    ".table-delete input[type='checkbox']:checked"
-  );
-  if (checkedRows.length === 0) {
-    alert("Select at least one task");
-  } else {
-    const confirmed = confirm("Are you sure you want to delete this item?");
+// const deleteButton = document.querySelector(
+//   ".table-delete button:nth-of-type(2)"
+// );
+// const deleteAllButton = document.querySelector(
+//   ".table-delete button:nth-of-type(3)"
+// );
+// deleteButton.addEventListener("click", function () {
+//   const checkedRows = document.querySelectorAll(
+//     ".table-delete input[type='checkbox']:checked"
+//   );
+//   if (checkedRows.length === 0) {
+//     alert("Select at least one task");
+//   } else {
+//     const confirmed = confirm("Are you sure you want to delete this item?");
 
-    // If user confirms, delete the row
-    if (confirmed) {
-      // Get the parent <tr> element and remove it
-      checkedRows.forEach(function (row) {
-        row.closest("tr").remove();
-      });
-    }
-  }
-});
+//     // If user confirms, delete the row
+//     if (confirmed) {
+//       // Get the parent <tr> element and remove it
+//       checkedRows.forEach(function (row) {
+//         row.closest("tr").remove();
+//       });
+//     }
+//   }
+// });
 
-deleteAllButton.addEventListener("click", function () {
-  const confirmation = confirm("Are you sure you want to delete all tasks?");
-  if (confirmation) {
-    const rows = document.querySelectorAll(".table-delete tr");
-    rows.forEach(function (row, index) {
-      if (index !== 0 && index !== rows.length - 1) {
-        // Skip the first and last rows
-        row.remove();
-      }
-    });
-  }
-});
+// deleteAllButton.addEventListener("click", function () {
+//   const confirmation = confirm("Are you sure you want to delete all tasks?");
+//   if (confirmation) {
+//     const rows = document.querySelectorAll(".table-delete tr");
+//     rows.forEach(function (row, index) {
+//       if (index !== 0 && index !== rows.length - 1) {
+//         // Skip the first and last rows
+//         row.remove();
+//       }
+//     });
+//   }
+// });
 
-const checkboxes = document.querySelectorAll(
-  ".table-delete input[type='checkbox']"
-);
-const cancelButton = document.querySelector(
-  ".table-delete button:nth-of-type(1)"
-);
-cancelButton.addEventListener("click", function () {
-  checkboxes.forEach(function (checkbox) {
-    checkbox.checked = false;
-  });
-  document.getElementById("table-for-delete").classList.add("hidden");
-});
-const table = document.getElementById("table-for-delete");
+// const checkboxes = document.querySelectorAll(
+//   ".table-delete input[type='checkbox']"
+// );
+// const cancelButton = document.querySelector(
+//   ".table-delete button:nth-of-type(1)"
+// );
+// cancelButton.addEventListener("click", function () {
+//   checkboxes.forEach(function (checkbox) {
+//     console.log("hi");
+//     checkbox.checked = false;
+//   });
+//   document.getElementById("table-for-delete").classList.add("hidden");
+// });
+// const table = document.getElementById("table-for-delete");
 
-document.getElementById("delete-delete").addEventListener("click", () => {
-  if (table.classList.contains("hidden")) {
-    table.classList.remove("hidden");
-  } else {
-    checkboxes.forEach(function (checkbox) {
-      checkbox.checked = false;
-    });
-    table.classList.add("hidden");
-  }
-});
-
-document.getElementById("showTaskButton").addEventListener("click", () => {
-  const table2 = document.getElementById("table-for-show");
-  table2.classList.toggle("hidden");
-});
+// document.getElementById("delete-delete").addEventListener("click", () => {
+//   if (table.classList.contains("hidden")) {
+//     table.classList.remove("hidden");
+//   } else {
+//     checkboxes.forEach(function (checkbox) {
+//       checkbox.checked = false;
+//     });
+//     table.classList.add("hidden");
+//   }
+// });
 
 document.querySelectorAll(".emp-event").forEach((element) => {
   element.addEventListener("click", () => {
@@ -711,7 +194,6 @@ viewCommentsButton.forEach((element) => {
     // Check if the private comments section is already added
     let existingPrivateComments = tableRow.nextElementSibling;
 
-    console.log("hi");
     if (existingPrivateComments) {
       let justify = existingPrivateComments.querySelector("td");
 
@@ -722,46 +204,98 @@ viewCommentsButton.forEach((element) => {
       }
       // If the private comments section already exists, remove it
       else {
-        // Create a new table row for the private comments section
-        var newRow = document.createElement("tr");
-        newRow.innerHTML = `
-          <td colspan="9" class="text-black private-comments-section">
-            <div class="w-full border border-black border-thin mt-4 rounded shadow-lg mb-2 ">
-              <!-- Private comments section content -->
-            
-              <div class="flex items-start flex-col ml-4 mt-4">
-                <div class="flex flex-row items-center">
-                  <i class="fa-regular fa-user font-s2-3 mr-2"></i>
-                  <p class="font-s2-3" id="num-comments">Private comments</p>
-                </div>
-             
-    
-                <div
-                  class="flex flex-row items-center w-full my-4"
-                  id="insert-element"
-                >
-                  <textarea
-                    id="newText"
-                    rows="2"
-                    style="resize: none"
-                    placeholder="Add private comment..."
-                    class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
-                  ></textarea>
-                  <i
-                    class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
-                    id="insertContentBtn"
-                  ></i>
-                </div>
-              </div>
+        let dbRef = ref(db, "Task-Manager/Assigned-Tasks");
+        let sender = "";
+        let receipient = "";
+        return get(dbRef).then((snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            var task = childSnapshot.val();
+            var id = childSnapshot.key;
+            const row = this.closest("tr");
+            const cell = row.querySelectorAll("td");
+            const id2 = cell[0].textContent;
+            if (id === id2) {
+              let username = sessionStorage
+                .getItem("username")
+                .replace(".", "-");
+              const storageRef = storageRefNominal(
+                getStorage(app),
+                `Images/${username}/${username}-profile`
+              );
+              getDownloadURL(storageRef)
+                .then((url) => {
+                  // Assign the URL to an <img> element to display the image
+
+                  sender = url;
+                  const storageRef = storageRefNominal(
+                    getStorage(app),
+                    `Images/${username}/${task.empAssignedId}-profile`
+                  );
+
+                  getDownloadURL(storageRef)
+                    .then((url) => {
+                      // Assign the URL to an <img> element to display the image
+
+                      receipient = url;
+                    })
+                    .catch((error) => {
+                      // Handle errors if the file does not exist
+                      console.error(
+                        "Error downloading file1 from Storage: ",
+                        error
+                      );
+                    });
+                })
+                .catch((error) => {
+                  // Handle errors if the file does not exist
+                  console.error(
+                    "Error downloading file1 from Storage: ",
+                    error
+                  );
+                });
+              // Create a new table row for the private comments section
+              var newRow = document.createElement("tr");
+              newRow.innerHTML = `
+                <td colspan="9" class="text-black private-comments-section">
+                  <div class="w-full border border-black border-thin mt-4 rounded shadow-lg mb-2 ">
+                    <!-- Private comments section content -->
+                  
+                    <div class="flex items-start flex-col ml-4 mt-4">
+                      <div class="flex flex-row items-center">
+                        <i class="fa-regular fa-user font-s2-3 mr-2"></i>
+                        <p class="font-s2-3" id="num-comments">Private comments</p>
+                      </div>
+                   
           
-          </td>
-        `;
+                      <div
+                        class="flex flex-row items-center w-full my-4"
+                        id="insert-element"
+                      >
+                        <textarea
+                          id="newText"
+                          rows="2"
+                          style="resize: none"
+                          placeholder="Add private comment..."
+                          class="task-adder border border-gray-600 focus:outline-none dark:text-white dark:border-gray-600 dark:bg-gray-600 px-4 py-2 rounded w-full mr-2"
+                        ></textarea>
+                        <i
+                          class="fa-solid fa-arrow-right font-s2-3 mr-4 hover:cursor-pointer"
+                          id="insertContentBtn"
+                        ></i>
+                      </div>
+                    </div>
+                
+                </td>
+              `;
 
-        // Insert the new row after the current row
-        tableRow.parentNode.insertBefore(newRow, tableRow.nextSibling);
-        exists = true;
+              // Insert the new row after the current row
+              tableRow.parentNode.insertBefore(newRow, tableRow.nextSibling);
+              exists = true;
 
-        addcomment();
+              addcomment();
+            }
+          });
+        });
       }
     }
   });
@@ -874,138 +408,139 @@ document.getElementById("insertContentBtn-2").addEventListener("click", () => {
 
 var tableTask = document.getElementById("task-manage");
 
-// Get all delete buttons within the table and attach click event listener
-var deleteButtons = tableTask
-  .querySelector(".delete-button")
-  .addEventListener("click", () => {
-    const checkedRows = tableTask.querySelectorAll(
-      "input[type='checkbox']:checked"
-    );
-    if (checkedRows.length === 0) {
-      alert("Select at least one task");
-    } else {
-      checkedRows.forEach(function (row) {
-        row.closest("tr").remove();
-      });
-    }
-  });
+// // Get all delete buttons within the table and attach click event listener
+// var deleteButtons = tableTask
+//   .querySelector(".delete-button")
+//   .addEventListener("click", () => {
+//     const checkedRows = tableTask.querySelectorAll(
+//       "input[type='checkbox']:checked"
+//     );
+//     if (checkedRows.length === 0) {
+//       alert("Select at least one task");
+//     } else {
+//       checkedRows.forEach(function (row) {
+//         row.closest("tr").remove();
+//       });
+//     }
+//   });
 
 // Get delete all button within the table and attach click event listener
-var deleteAllButton2 = tableTask.querySelector(".delete-all-button");
-deleteAllButton2.addEventListener("click", function () {
-  const confirmation = confirm("Are you sure you want to delete all tasks?");
-  if (confirmation) {
-    const rows = tableTask.querySelectorAll("tr");
-    rows.forEach(function (row, index) {
-      if (index !== 0 && index !== rows.length - 1) {
-        // Skip the first and last rows
-        row.remove();
-      }
-    });
-  }
-});
+// var deleteAllButton2 = tableTask.querySelector(".delete-all-button");
+// deleteAllButton2.addEventListener("click", function () {
+//   const confirmation = confirm("Are you sure you want to delete all tasks?");
+//   if (confirmation) {
+//     const rows = tableTask.querySelectorAll("tr");
+//     rows.forEach(function (row, index) {
+//       if (index !== 0 && index !== rows.length - 1) {
+//         // Skip the first and last rows
+//         row.remove();
+//       }
+//     });
+//   }
+// });
 
 // Get all trash icons within the table and attach click event listener
-const deleteIcon2 = tableTask.querySelectorAll(".delete-icon-2");
+// const deleteIcon2 = tableTask.querySelectorAll(".delete-icon-2");
 
-// Add click event listener to the delete icon
-deleteIcon2.forEach((element) => {
-  element.addEventListener("click", function () {
-    // Ask for confirmation
-    const confirmed = confirm("Are you sure you want to delete this item?");
+// // Add click event listener to the delete icon
+// deleteIcon2.forEach((element) => {
+//   element.addEventListener("click", function () {
+//     // Ask for confirmation
+//     const confirmed = confirm("Are you sure you want to delete this item?");
 
-    // If user confirms, delete the row
-    if (confirmed) {
-      // Get the parent <tr> element and remove it
-      const row = this.closest("tr");
-      row.remove();
-    }
-  });
-});
+//     // If user confirms, delete the row
+//     if (confirmed) {
+//       // Get the parent <tr> element and remove it
+//       const row = this.closest("tr");
+//       row.remove();
+//     }
+//   });
+// });
 
-const checkboxes2 = tableTask.querySelectorAll("input[type='checkbox']");
-const cancelButton2 = tableTask.querySelector(".cancel-2");
-cancelButton2.addEventListener("click", function () {
-  checkboxes2.forEach(function (checkbox) {
-    checkbox.checked = false;
-  });
-});
+// const checkboxes2 = tableTask.querySelectorAll("input[type='checkbox']");
+// const cancelButton2 = tableTask.querySelector(".cancel-2");
+// cancelButton2.addEventListener("click", function () {
+//   checkboxes2.forEach(function (checkbox) {
+//     checkbox.checked = false;
+//   });
+// });
 
 //serach main
-var table2 = document.getElementById("task-manage");
+//var table2 = document.getElementById("task-manage");
 
-// Get the search input element
-var searchInput2 = document.getElementById("search-input");
+// // Get the search input element
+// var searchInput2 = document.getElementById("search-input");
 
-// Get the search icon element
-var searchIcon2 = document.getElementById("search-icon");
+// // Get the search icon element
+// var searchIcon2 = document.getElementById("search-icon");
 
-// Get the rotate icon element
-var rotateIcon = document.getElementById("rotate-icon");
+// // Get the rotate icon element
+// var rotateIcon = document.getElementById("rotate-icon");
 
-var taskRows = Array.from(table2.querySelectorAll(".task-row")).slice(1, -1);
+// //var taskRows = Array.from(table2.querySelectorAll("tr")).slice(1, -1);
+// //console.log(taskRows);
 
-// Add click event listener to the search icon
-searchIcon2.addEventListener("click", function () {
-  // Get the search query
-  var searchQuery = searchInput2.value.toLowerCase().trim();
+// // Add click event listener to the search icon
+// searchIcon2.addEventListener("click", function () {
+//   // Get the search query
+//   var searchQuery = searchInput2.value.toLowerCase().trim();
 
-  // Get all task rows excluding the first and last
+//   // Get all task rows excluding the first and last
 
-  // Loop through each task row
-  taskRows.forEach(function (row) {
-    const rowData = row.textContent.toLowerCase();
-    if (rowData.includes(searchQuery)) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
-});
+//   // Loop through each task row
+//   taskRows.forEach(function (row) {
+//     const rowData = row.textContent.toLowerCase();
+//     if (rowData.includes(searchQuery)) {
+//       row.style.display = "";
+//     } else {
+//       row.style.display = "none";
+//     }
+//   });
+// });
 
-rotateIcon.addEventListener("click", function () {
-  taskRows.forEach(function (row) {
-    row.style.display = "";
-  });
-  searchInput2.value = "";
-});
+// rotateIcon.addEventListener("click", function () {
+//   taskRows.forEach(function (row) {
+//     row.style.display = "";
+//   });
+//   searchInput2.value = "";
+// });
 
-// Get the select element
-var statusSelect = document.querySelector("#status-select");
+// // Get the select element
+// var statusSelect = document.querySelector("#status-select");
 
-// Add change event listener to the select element
-statusSelect.addEventListener("change", function () {
-  // Get the selected status value
-  var selectedStatus = this.value.toLocaleLowerCase().trim();
+// // Add change event listener to the select element
+// statusSelect.addEventListener("change", function () {
+//   // Get the selected status value
+//   var selectedStatus = this.value.toLocaleLowerCase().trim();
 
-  // Get all task rows excluding the first and last
-  var taskRows2 = Array.from(document.querySelectorAll(".task-row")).slice(
-    1,
-    -1
-  );
+//   // Get all task rows excluding the first and last
+//   var taskRows2 = Array.from(document.querySelectorAll(".task-row")).slice(
+//     1,
+//     -1
+//   );
 
-  // Loop through each task row
-  taskRows2.forEach(function (row) {
-    // Get the status from the row
-    var status = row
-      .querySelector(".status")
-      .textContent.toLocaleLowerCase()
-      .trim();
+//   // Loop through each task row
+//   taskRows2.forEach(function (row) {
+//     // Get the status from the row
+//     var status = row
+//       .querySelector(".status")
+//       .textContent.toLocaleLowerCase()
+//       .trim();
 
-    // Show the row if it matches the selected status, hide otherwise
-    if (selectedStatus === "status(all)") {
-      taskRows.forEach(function (row) {
-        row.style.display = "";
-      });
-    } else {
-      if (status === selectedStatus) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    }
-  });
-});
+//     // Show the row if it matches the selected status, hide otherwise
+//     if (selectedStatus === "status(all)") {
+//       taskRows.forEach(function (row) {
+//         row.style.display = "";
+//       });
+//     } else {
+//       if (status === selectedStatus) {
+//         row.style.display = "";
+//       } else {
+//         row.style.display = "none";
+//       }
+//     }
+//   });
+// });
 
 document.querySelectorAll(".my-task").forEach((task) => {
   task.addEventListener("click", () => {
@@ -1018,75 +553,218 @@ document.querySelectorAll(".my-task").forEach((task) => {
   });
 });
 
-document.querySelectorAll(".my-account-btn").forEach((task) => {
-  task.addEventListener("click", () => {
-    document.getElementById("emp").classList.add("hidden");
+// document.querySelectorAll(".my-account-btn").forEach((task) => {
+//   task.addEventListener("click", () => {
+//     document.getElementById("emp").classList.add("hidden");
 
-    document.getElementById("main").classList.add("hidden");
-    document.getElementById("main-2").classList.add("hidden");
-    document.getElementById("detail").classList.add("hidden");
+//     document.getElementById("main").classList.add("hidden");
+//     document.getElementById("main-2").classList.add("hidden");
+//     document.getElementById("detail").classList.add("hidden");
 
-    document.getElementById("my-account").classList.remove("hidden");
-  });
-});
+//     document.getElementById("my-account").classList.remove("hidden");
+//   });
+// });
 
-document.querySelectorAll(".select-detail").forEach((element) => {
-  element.addEventListener("click", () => {
-    const manipulateDetail = document.getElementById("detail");
-    manipulateDetail.classList.remove("hidden");
-    document.getElementById("main-2").classList.add("hidden");
-  });
-});
+// document.querySelectorAll(".select-detail").forEach((element) => {
+//   element.addEventListener("click", () => {
+//     const manipulateDetail = document.getElementById("detail");
+//     manipulateDetail.classList.remove("hidden");
+//     document.getElementById("main-2").classList.add("hidden");
+//   });
+// });
 
-document.getElementById("back-arrow").addEventListener("click", () => {
-  const manipulateDetail = document.getElementById("detail");
-  manipulateDetail.classList.add("hidden");
-  document.getElementById("main-2").classList.remove("hidden");
-});
+// document.getElementById("back-arrow").addEventListener("click", () => {
+//   const manipulateDetail = document.getElementById("detail");
+//   manipulateDetail.classList.add("hidden");
+//   document.getElementById("main-2").classList.remove("hidden");
+// });
 
-const openFileDialogBtn = document.getElementById("openFileDialogBtn");
-const fileInput = document.getElementById("fileInput");
+// if (task.fileNameEmpURL) {
+//   document.getElementById("openFileDialogBtn").classList.add("hidden");
+//   document.getElementById("remove-file").classList.remove("hidden");
+//   document.getElementById("view").classList.remove("hidden");
+// }
 
-// Add event listener to the button
-openFileDialogBtn.addEventListener("click", () => {
-  // Trigger the file input when button is clicked
-  fileInput.click();
-});
+// document.getElementById("done").addEventListener("click", function () {
+//   update(ref(database, `Task-Manager/Assigned-Tasks/${task.key}`), {
+//     status: "Completed",
+//   })
+//     .then(() => {
+//       alert("You accomplished the task! Congratulations!");
+//       document.getElementById("undone").classList.remove("hidden");
+//       document.getElementById("done").classList.add("hidden");
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       alert("You failed to complete the task!, Try again later.");
+//     });
+// });
+// document.getElementById("undone").addEventListener("click", function () {
+//   update(ref(database, `Task-Manager/Assigned-Tasks/${task.key}`), {
+//     status: "On Progress",
+//   })
+//     .then(() => {
+//       alert("You are now on progress again!");
+//       document.getElementById("undone").classList.add("hidden");
+//       document.getElementById("done").classList.remove("hidden");
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       alert("You failed to be on progress again!, Try again later.");
+//     });
+// });
 
-// Add event listener to the file input to handle file selection
-fileInput.addEventListener("change", (event) => {
-  // Get the selected file
-  const selectedFile = event.target.files[0];
+// const openFileDialogBtn = document.getElementById("openFileDialogBtn");
+// const fileInput = document.getElementById("fileInput");
 
-  const detail = document.getElementById("file-span");
+// // Add event listener to the button
+// openFileDialogBtn.addEventListener("click", () => {
+//   // Trigger the file input when button is clicked
+//   fileInput.click();
+// });
 
-  // Get the selected file name
-  const fileName = selectedFile.name;
+// let selectedFile;
 
-  // Check if the file name length is greater than 20 characters
-  const displayName =
-    fileName.length > 35 ? fileName.substring(0, 35) + "..." : fileName;
+// // Add event listener to the file input to handle file selection
+// fileInput.addEventListener("change", (event) => {
+//   // Get the selected file
+//   selectedFile = event.target.files[0];
 
-  // Set the innerHTML of detail element to the displayed name
-  detail.innerHTML = displayName;
+//   const detail = document.getElementById("file-span");
 
-  document.getElementById("remove-file").classList.remove("hidden");
-});
-document.getElementById("remove-file").addEventListener(
-  "click",
+//   // Get the selected file name
+//   const fileName = selectedFile.name;
 
-  function () {
-    const fileInput = document.getElementById("fileInput");
+//   // Check if the file name length is greater than 20 characters
+//   const displayName =
+//     fileName.length > 35 ? fileName.substring(0, 35) + "..." : fileName;
 
-    // Get the file span element
-    const fileSpan = document.getElementById("file-span");
-    // Clear the selected file by resetting the value of the file input
-    fileInput.value = "";
-    // Clear the file span content
-    fileSpan.textContent = "";
-    document.getElementById("remove-file").classList.add("hidden");
-  }
-);
+//   // Set the innerHTML of detail element to the displayed name
+//   detail.innerHTML = displayName;
+
+//   document.getElementById("remove-file").classList.remove("hidden");
+//   document.getElementById("uploadBtn").classList.remove("hidden");
+// });
+
+// let urlFinal2 = "";
+
+// document.getElementById("uploadBtn").addEventListener("click", () => {
+//   const storageRef = storageRefNominal(
+//     getStorage(app),
+//     `Completed-Tasks/${task.key}/${selectedFile.name}`
+//   );
+//   try {
+//     // Upload the file to Firebase Storage
+//     const snapshot = uploadBytes(storageRef, selectedFile);
+
+//     // Update the task object with the download URL
+
+//     // Update the database with the task including the download URL
+//     update(ref(database, `Task-Manager/Assigned-Tasks/${task.key}`), {
+//       fileNameEmpURL: selectedFile.name,
+//     });
+
+//     document.getElementById("openFileDialogBtn").classList.add("hidden");
+//     alert("File uploaded successfully!");
+//     document.getElementById("uploadBtn").classList.add("hidden");
+//     document.getElementById("view").classList.remove("hidden");
+
+//     if (task.fileNameEmpURL) {
+//       let storagePath = "Assigned-Tasks/" + id + "/" + task.fileNameEmpURL;
+
+//       // Create a reference to the file in Firebase Storage
+//       let storageRef2 = storageRefNominal(getStorage(app), storagePath);
+
+//       // Get the download URL for the file
+//       getDownloadURL(storageRef2)
+//         .then(function (url) {
+//           // Set the file URL as the href attribute
+//           urlFinal2 = url;
+//           // Set the download attribute to prompt the user to save the file with the filename
+//         })
+//         .catch(function (error) {
+//           // Handle any errors that occur
+//           console.error("Error getting download URL:", error);
+//           alert("Error in downloading file");
+//         });
+//     }
+//   } catch (error) {
+//     console.error("Error uploading file:", error);
+//     alert("File uploading failed!, Try again later!");
+//   }
+// });
+
+// const viewer = document.getElementById("view");
+
+// document.getElementById("view").addEventListener("click", () => {
+//   if (task.fileNameEmpURL) {
+//     let storagePath = "Assigned-Tasks/" + id + "/" + task.fileNameEmpURL;
+
+//     // Create a reference to the file in Firebase Storage
+//     let storageRef2 = storageRefNominal(getStorage(app), storagePath);
+
+//     // Get the download URL for the file
+//     getDownloadURL(storageRef2)
+//       .then(function (url) {
+//         // Set the file URL as the href attribute
+//         urlFinal2 = url;
+//         // Set the download attribute to prompt the user to save the file with the filename
+//       })
+//       .catch(function (error) {
+//         // Handle any errors that occur
+//         console.error("Error getting download URL:", error);
+//         alert("Error in downloading file");
+//       });
+//   }
+
+//   if (!task.filenameAdminURL) {
+//     alert("There is no file attached");
+//   } else {
+//     viewer.href = urlFinal2;
+//     viewer.download = task.fileNameEmpURL;
+//   }
+// });
+
+// const remover = document.getElementById("remove-file");
+
+// document.getElementById("remove-file").addEventListener(
+//   "click",
+
+//   function () {
+//     if (task.fileNameEmpURL) {
+//       let storagePath = "Assigned-Tasks/" + id + "/" + task.fileNameEmpURL;
+
+//       // Create a reference to the file in Firebase Storage
+//       let storageRef = storageRefNominal(getStorage(app), storagePath);
+
+//       // Delete the file
+//       deleteObject(storageRef)
+//         .then(() => {
+//           console.log("File deleted successfully.");
+//           alert("File removed successfuly.");
+//           document.getElementById("remove-file").classList.add("hidden");
+//           document.getElementById("view").classList.add("hidden");
+
+//           document
+//             .getElementById("openFileDialogBtn")
+//             .classList.remove("hidden");
+//         })
+//         .catch((error) => {
+//           console.error("Error deleting file:", error);
+//           alert("Error deleting file: Try again later!");
+//         });
+//     }
+
+//     const fileInput = document.getElementById("fileInput");
+
+//     // Get the file span element
+//     const fileSpan = document.getElementById("file-span");
+//     // Clear the selected file by resetting the value of the file input
+//     fileInput.value = "";
+//     // Clear the file span content
+//     fileSpan.textContent = "";
+//   }
+// );
 
 //My account
 //
@@ -1119,55 +797,11 @@ imageFileInput.addEventListener("change", function () {
     const reader = new FileReader();
     reader.onload = function (event) {
       const imageUrl = event.target.result;
-      imagePreview.innerHTML = `<img src="${imageUrl}" alt="Preview">`;
+      imagePreview.src = imageUrl;
     };
     reader.readAsDataURL(file);
   } else {
-    imagePreview.innerHTML = ""; // Clear the image preview if no file is selected
-  }
-});
-
-document.getElementById("myForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-  // Check if the form is valid
-  if (!this.checkValidity()) {
-    // If the form is invalid, prevent default submission
-    event.preventDefault();
-    event.stopPropagation();
-  } else {
-    window.alert("The data are successfully saved!");
-    this.reset();
-  }
-});
-
-document.getElementById("myForm2").addEventListener("submit", function (event) {
-  event.preventDefault();
-  // Check if the form is valid
-  if (!this.checkValidity()) {
-    // If the form is invalid, prevent default submission
-    event.preventDefault();
-    event.stopPropagation();
-  } else {
-    // Retrieve input values
-    var oldPassword = document.getElementById("text-old").value;
-    var newPassword1 = document.getElementById("text-new1").value;
-    var newPassword2 = document.getElementById("text-new2").value;
-
-    // Check if all fields have at least four characters
-    if (
-      oldPassword.length < 4 ||
-      newPassword1.length < 4 ||
-      newPassword2.length < 4
-    ) {
-      alert("Password must be at least 4 characters long.");
-      return; // Stop further execution
-    }
-    if (newPassword1 !== newPassword2) {
-      alert("New Password and Confirm New Password must match.");
-      return; // Stop further execution
-    }
-    window.alert("The password is successfully changed!");
-    this.reset();
+    imagePreview.src = ""; // Clear the image preview if no file is selected
   }
 });
 
@@ -1176,4 +810,303 @@ document.getElementById("reset-all").addEventListener("click", () => {
   // Clear the display name
   const detail = document.getElementById("file-span-2");
   detail.innerHTML = "";
+});
+
+function logout() {
+  // Close the current window/tab
+  window.close();
+  // Replace the current URL in the browser history with the login page URL
+  history.replaceState(null, "", "index.html");
+  history.pushState(null, "", "index.html");
+  // Redirect to the login page
+  window.location.href = "index.html";
+}
+
+const openFileDialogBtnTask = document.getElementById("openFileDialogBtn-task");
+
+openFileDialogBtnTask.addEventListener("click", function addTaskFile() {
+  const fileInput = document.getElementById("fileInput-task");
+
+  // Add event listener to the button
+
+  // Trigger the file input when button is clicked
+  fileInput.click();
+
+  // Add event listener to the file input to handle file selection
+  fileInput.addEventListener("change", (event) => {
+    // Get the selected file
+    const selectedFile = event.target.files[0];
+
+    const detail = document.getElementById("file-span-task");
+
+    // Get the selected file name
+    const fileName = selectedFile.name;
+
+    // Check if the file name length is greater than 20 characters
+    const displayName =
+      fileName.length > 20 ? fileName.substring(0, 20) + "..." : fileName;
+
+    // Set the innerHTML of detail element to the displayed name
+    detail.innerHTML = displayName;
+
+    document.getElementById("remove-file-task").classList.remove("hidden");
+  });
+});
+
+document.getElementById("remove-file-task").addEventListener(
+  "click",
+
+  function () {
+    const fileInput = document.getElementById("fileInput-task");
+
+    // Get the file span element
+    const fileSpan = document.getElementById("file-span-task");
+    // Clear the selected file by resetting the value of the file input
+    fileInput.value = "";
+    // Clear the file span content
+    fileSpan.textContent = "";
+    document.getElementById("remove-file-task").classList.add("hidden");
+  }
+);
+
+let isNonEmpty = false;
+
+function toggleRowsVisibility() {
+  //const succedded = document.getElementById("success-task");
+  // if (!succedded.classList.contains("hidden")) {
+  //   succedded.classList.add("hidden");
+  // }
+
+  const formRows = document.querySelectorAll(".new-task");
+  const iconC = document.querySelector("#i-task");
+
+  formRows.forEach((row) => {
+    if (row.classList.contains("hidden")) {
+      row.classList.remove("hidden");
+      iconC.classList.remove("fa-chevron-down");
+      iconC.classList.add("fa-chevron-up");
+    } else {
+      row.classList.add("hidden");
+      iconC.classList.remove("fa-chevron-up");
+      iconC.classList.add("fa-chevron-down");
+    }
+  });
+}
+
+document.getElementById("i-task").addEventListener("click", showAlert);
+
+function showAlert() {
+  // Get all input elements
+  let inputs = document.querySelectorAll(".task-adder");
+  // Check if any input field is non-empty
+  let temp = false;
+
+  inputs.forEach((input) => {
+    if (input.value.trim() !== "") {
+      temp = true;
+    }
+  });
+
+  if (temp) {
+    isNonEmpty = true;
+  } else {
+    isNonEmpty = false;
+    toggleRowsVisibility();
+    const succedded = document.getElementById("success-task");
+
+    if (!succedded.classList.contains("hidden")) {
+      succedded.classList.add("hidden");
+    }
+  }
+
+  // If any input field is non-empty, show the alert
+  if (isNonEmpty) {
+    // Set the alert text
+    const confirm = window.confirm(
+      "Are you sure you want to cancel? All the inserted data will be lost !"
+    );
+    if (confirm) {
+      isNonEmpty = false;
+      inputs.forEach((input) => {
+        input.value = "";
+      });
+
+      toggleRowsVisibility();
+      const succedded = document.getElementById("success-task");
+
+      if (!succedded.classList.contains("hidden")) {
+        succedded.classList.add("hidden");
+      }
+    }
+  }
+}
+
+const addButton = document.getElementById("cancelButton");
+addButton.addEventListener("click", showAlert);
+
+function cancelButtonClick() {
+  const succedded = document.getElementById("success-task");
+  const succedded2 = document.getElementById("success-task2");
+  const table = document.getElementById("tableContainer");
+  // Get all checkboxes in the tasks
+  const taskCheckboxes = document.querySelectorAll(
+    '#tableContainer input[type="checkbox"]'
+  );
+
+  // Check if at least one checkbox is checked
+  const atLeastOneChecked = [...taskCheckboxes].some(
+    (checkbox) => checkbox.checked
+  );
+  // Get all input elements
+  let inputs = document.querySelectorAll(".task-adder");
+  // Check if any input field is non-empty
+  let temp = false;
+
+  inputs.forEach((input) => {
+    if (input.value.trim() !== "") {
+      temp = true;
+    }
+  });
+
+  if (temp) {
+    isNonEmpty = true;
+  } else {
+    isNonEmpty = false;
+  }
+
+  // If any input field is non-empty, show the alert
+
+  // If at least one checkbox is checked, prompt confirmation
+  if (atLeastOneChecked || isNonEmpty) {
+    if (!succedded.classList.contains("hidden")) {
+      succedded.classList.add("hidden");
+    }
+    if (!succedded2.classList.contains("hidden")) {
+      succedded2.classList.add("hidden");
+    }
+    const confirmed = confirm(
+      "Are you sure you want to cancel? All the inserted data will be lost!"
+    );
+
+    // If confirmed, perform cancel action
+    if (confirmed) {
+      table.classList.add("hidden");
+
+      // Get all checkboxes in the tasks
+      const taskCheckboxes = document.querySelectorAll(
+        'input[type="checkbox"][id^="task"]'
+      );
+      const employeeCheckboxes = document.querySelectorAll(
+        'input[type="checkbox"][id^="employee"]'
+      );
+
+      // Check if at least one checkbox is checked
+      const atLeastOnetaskChecked = [...taskCheckboxes].some(
+        (checkbox) => checkbox.checked
+      );
+      const atLeastOneemployeeChecked = [...employeeCheckboxes].some(
+        (checkbox) => checkbox.checked
+      );
+
+      const startDate = document.getElementById("startDate").value;
+      const completionDate = document.getElementById("completionDate").value;
+      const datesFilled = startDate !== "" && completionDate !== "";
+      const startDateObj = new Date(startDate);
+      const completionDateObj = new Date(completionDate);
+      const isValidDates = completionDateObj >= startDateObj;
+      isNonEmpty = false;
+      inputs.forEach((input) => {
+        input.value = "";
+      });
+      const succedded = document.getElementById("success-task");
+
+      // If at least one checkbox is checked, prompt confirmation
+
+      startDate.value = null;
+      completionDate.value = null;
+      // Uncheck all task checkboxes
+      taskCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+
+      // Uncheck all employee checkboxes
+      employeeCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+      // Get the file input element
+      const fileInput = document.getElementById("fileInput");
+
+      // Get the file span element
+      const fileSpan = document.getElementById("file-span");
+      // Clear the selected file by resetting the value of the file input
+      fileInput.value = "";
+      // Clear the file span content
+      fileSpan.textContent = "";
+    }
+  } else {
+    if (!succedded.classList.contains("hidden")) {
+      succedded.classList.add("hidden");
+    }
+    if (!succedded2.classList.contains("hidden")) {
+      succedded2.classList.add("hidden");
+    }
+    table.classList.add("hidden");
+    // Get all checkboxes in the tasks
+    const taskCheckboxes = document.querySelectorAll(
+      'input[type="checkbox"][id^="task"]'
+    );
+    const employeeCheckboxes = document.querySelectorAll(
+      'input[type="checkbox"][id^="employee"]'
+    );
+
+    // Check if at least one checkbox is checked
+    const atLeastOnetaskChecked = [...taskCheckboxes].some(
+      (checkbox) => checkbox.checked
+    );
+    const atLeastOneemployeeChecked = [...employeeCheckboxes].some(
+      (checkbox) => checkbox.checked
+    );
+
+    const startDate = document.getElementById("startDate").value;
+    const completionDate = document.getElementById("completionDate").value;
+    const datesFilled = startDate !== "" && completionDate !== "";
+    const startDateObj = new Date(startDate);
+    const completionDateObj = new Date(completionDate);
+    const isValidDates = completionDateObj >= startDateObj;
+
+    // If at least one checkbox is checked, prompt confirmation
+
+    startDate.value = null;
+    completionDate.value = null;
+    // Uncheck all task checkboxes
+    taskCheckboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+
+    // Uncheck all employee checkboxes
+    employeeCheckboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+    // Get the file input element
+    const fileInput = document.getElementById("fileInput");
+
+    // Get the file span element
+    const fileSpan = document.getElementById("file-span");
+    // Clear the selected file by resetting the value of the file input
+    fileInput.value = "";
+    // Clear the file span content
+    fileSpan.textContent = "";
+  }
+}
+document
+  .getElementById("cancelButton2")
+  .addEventListener("click", cancelButtonClick);
+
+document.getElementById("generateTableButton").addEventListener("click", () => {
+  const table = document.getElementById("tableContainer");
+  if (table.classList.contains("hidden")) {
+    table.classList.remove("hidden");
+  } else {
+    cancelButtonClick();
+  }
 });

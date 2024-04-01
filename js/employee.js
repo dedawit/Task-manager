@@ -248,3 +248,14 @@ document.getElementById("reset-all").addEventListener("click", () => {
   const detail = document.getElementById("file-span-2");
   detail.innerHTML = "";
 });
+
+//logout
+function logout() {
+  // Close the current window/tab
+  window.close();
+  // Replace the current URL in the browser history with the login page URL
+  history.replaceState(null, "", "index.html");
+  history.pushState(null, "", "index.html");
+  // Redirect to the login page
+  window.location.href = "index.html";
+}
